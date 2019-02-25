@@ -1,4 +1,4 @@
-package com.atos.rating.service;
+package com.atos.feedback.service;
 
 public class UserVOModelMapper {
 

@@ -1,6 +1,6 @@
-package com.atos.rating.service;
+package com.atos.feedback.service;
 
-import com.atos.rating.vo.UserVO;
+import com.atos.feedback.vo.UserVO;
 
 public class UserServiceImpl implements UserService {
 

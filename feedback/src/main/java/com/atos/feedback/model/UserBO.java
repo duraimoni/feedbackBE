@@ -1,4 +1,4 @@
-package com.atos.rating.model;
+package com.atos.feedback.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

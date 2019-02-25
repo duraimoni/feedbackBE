@@ -1,4 +1,4 @@
-package com.atos.rating.vo;
+package com.atos.feedback.vo;
 
 public class UserVO {
 
