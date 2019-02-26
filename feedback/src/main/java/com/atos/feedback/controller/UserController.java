@@ -32,6 +32,8 @@ public class UserController {
 	}
 	@GetMapping("all")
 	public List<UserVO> findAll() {
+		System.out.println("Return");
 		return null;
+		
 	}
 }
