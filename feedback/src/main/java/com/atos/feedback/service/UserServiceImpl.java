@@ -1,11 +1,13 @@
 package com.atos.feedback.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.atos.feedback.model.User;
 import com.atos.feedback.repository.UserRepository;
 import com.atos.feedback.vo.UserVO;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -16,6 +18,13 @@ public class UserServiceImpl implements UserService {
 		
 		User user = new User();
 		userRepository.save(user);
+		return null;
+	}
+
+	@Override
+	public UserVO findUser(Long userId) {
+		User user = userRepository.findById(userId).orElse(new User());
+		System.out.println("-"+user.getFirstName());
 		return null;
 	}
 

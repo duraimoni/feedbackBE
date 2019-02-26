@@ -14,7 +14,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-	private String userId;
+	private Long userId;
 	@Column(name = "first_name")
 	private String firstName;
 	@Column(name = "last_name")
@@ -24,11 +24,11 @@ public class User {
 	@Column(name = "status")
 	private Integer status;
 
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
