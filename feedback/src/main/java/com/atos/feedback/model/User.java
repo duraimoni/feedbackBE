@@ -1,39 +1,78 @@
 package com.atos.feedback.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;
 
+
+/**
+ * The persistent class for the user database table.
+ * 
+ */
 @Entity
-@Table(name = "user")
-public class User {
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "user_id")
-	private Long userId;
-	@Column(name = "first_name")
-	private String firstName;
-	@Column(name = "last_name")
-	private String lastName;
-	@Column(name = "password")
-	private String password;
-	@Column(name = "status")
-	private Integer status;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="user_id")
+	private int userId;
 
-	public Long getUserId() {
-		return userId;
+	@Column(name="first_name")
+	private String firstName;
+
+	@Column(name="last_name")
+	private String lastName;
+
+	private String password;
+
+	private int status;
+
+	private Timestamp updtime;
+
+	@Column(name="user_name")
+	private String userName;
+
+	//bi-directional many-to-one association to AppUser
+	@OneToMany(mappedBy="user1")
+	private List<AppUser> appUsers;
+
+	//bi-directional one-to-one association to AppUser
+	@OneToOne(mappedBy="user2")
+	private AppUser appUser;
+
+	//bi-directional many-to-one association to Product
+	@OneToMany(mappedBy="user")
+	private List<Product> products;
+
+	//bi-directional many-to-many association to Role
+	@ManyToMany
+	@JoinTable(
+		name="user_role"
+		, joinColumns={
+			@JoinColumn(name="user_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="role_id")
+			}
+		)
+	private List<Role> roles;
+
+	public User() {
 	}
 
-	public void setUserId(Long userId) {
+	public int getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
@@ -41,7 +80,7 @@ public class User {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
@@ -49,19 +88,95 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public int getStatus() {
+		return this.status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public Timestamp getUpdtime() {
+		return this.updtime;
+	}
+
+	public void setUpdtime(Timestamp updtime) {
+		this.updtime = updtime;
+	}
+
+	public String getUserName() {
+		return this.userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public List<AppUser> getAppUsers() {
+		return this.appUsers;
+	}
+
+	public void setAppUsers(List<AppUser> appUsers) {
+		this.appUsers = appUsers;
+	}
+
+	public AppUser addAppUser(AppUser appUser) {
+		getAppUsers().add(appUser);
+		appUser.setUser1(this);
+
+		return appUser;
+	}
+
+	public AppUser removeAppUser(AppUser appUser) {
+		getAppUsers().remove(appUser);
+		appUser.setUser1(null);
+
+		return appUser;
+	}
+
+	public AppUser getAppUser() {
+		return this.appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}
+
+	public List<Product> getProducts() {
+		return this.products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+
+	public Product addProduct(Product product) {
+		getProducts().add(product);
+		product.setUser(this);
+
+		return product;
+	}
+
+	public Product removeProduct(Product product) {
+		getProducts().remove(product);
+		product.setUser(null);
+
+		return product;
+	}
+
+	public List<Role> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }

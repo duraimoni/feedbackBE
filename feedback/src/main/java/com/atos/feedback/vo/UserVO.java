@@ -2,18 +2,18 @@ package com.atos.feedback.vo;
 
 public class UserVO {
 
-	private String userId;
+	private Integer userId;
 	private String firstName;
 	private String lastName;
 	private String password;
-	private String domain;
-	private String product;
+	private Integer domain;
+	private Integer product;
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -41,19 +41,19 @@ public class UserVO {
 		this.password = password;
 	}
 
-	public String getDomain() {
+	public Integer getDomain() {
 		return domain;
 	}
 
-	public void setDomain(String domain) {
+	public void setDomain(Integer domain) {
 		this.domain = domain;
 	}
 
-	public String getProduct() {
+	public Integer getProduct() {
 		return product;
 	}
 
-	public void setProduct(String product) {
+	public void setProduct(Integer product) {
 		this.product = product;
 	}
 
