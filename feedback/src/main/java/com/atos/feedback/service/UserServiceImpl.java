@@ -1,5 +1,6 @@
 package com.atos.feedback.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO findUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
-		System.out.println("-"+user.getFirstName());
-		return null;
+		UserVO userVo = new UserVO();
+		BeanUtils.copyProperties(user, userVo);
+		return userVo;
 	}
 
 }

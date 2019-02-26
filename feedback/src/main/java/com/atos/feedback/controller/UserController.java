@@ -1,5 +1,7 @@
 package com.atos.feedback.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,10 @@ public class UserController {
 	
 	@GetMapping("{userId}")
 	public UserVO findUser(@PathVariable final Long userId) {
-		userService.findUser(userId);
+		return userService.findUser(userId);
+	}
+	@GetMapping("all")
+	public List<UserVO> findAll() {
 		return null;
 	}
 }
