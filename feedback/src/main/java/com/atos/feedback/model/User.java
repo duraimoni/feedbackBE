@@ -18,7 +18,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
-	private int userId;
+	private Long userId;
 
 	@Column(name="first_name")
 	private String firstName;
@@ -63,11 +63,11 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public int getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

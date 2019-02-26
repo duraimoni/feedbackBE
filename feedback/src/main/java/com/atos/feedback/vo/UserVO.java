@@ -2,18 +2,18 @@ package com.atos.feedback.vo;
 
 public class UserVO {
 
-	private Integer userId;
+	private Long userId;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private Integer domain;
 	private Integer product;
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
