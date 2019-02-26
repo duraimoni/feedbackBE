@@ -1,0 +1,1 @@
+ALTER TABLE  `app_user` DROP FOREIGN KEY  `app_user_ibfk_3` ;
