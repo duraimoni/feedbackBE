@@ -18,16 +18,18 @@ public class AppUser implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="app_user_id")
-	private int appUserId;
-
-	@Column(name="app_id")
-	private int appId;
+	private Long appUserId;
 
 	private int status;
 
 	private int updby;
 
 	private Timestamp updtime;
+
+	//bi-directional many-to-one association to Domain
+	@ManyToOne
+	@JoinColumn(name="domain_id")
+	private Domain domain;
 
 	//bi-directional many-to-one association to Product
 	@ManyToOne
@@ -44,28 +46,20 @@ public class AppUser implements Serializable {
 	@JoinColumn(name="app_user_id")
 	private User user2;
 
-	//bi-directional many-to-one association to Domain
+	//bi-directional many-to-one association to Application
 	@ManyToOne
-	@JoinColumn(name="domain_id")
-	private Domain domain;
+	@JoinColumn(name="app_id")
+	private Application application;
 
 	public AppUser() {
 	}
 
-	public int getAppUserId() {
+	public Long getAppUserId() {
 		return this.appUserId;
 	}
 
-	public void setAppUserId(int appUserId) {
+	public void setAppUserId(Long appUserId) {
 		this.appUserId = appUserId;
-	}
-
-	public int getAppId() {
-		return this.appId;
-	}
-
-	public void setAppId(int appId) {
-		this.appId = appId;
 	}
 
 	public int getStatus() {
@@ -92,6 +86,14 @@ public class AppUser implements Serializable {
 		this.updtime = updtime;
 	}
 
+	public Domain getDomain() {
+		return this.domain;
+	}
+
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
 	public Product getProduct() {
 		return this.product;
 	}
@@ -116,12 +118,12 @@ public class AppUser implements Serializable {
 		this.user2 = user2;
 	}
 
-	public Domain getDomain() {
-		return this.domain;
+	public Application getApplication() {
+		return this.application;
 	}
 
-	public void setDomain(Domain domain) {
-		this.domain = domain;
+	public void setApplication(Application application) {
+		this.application = application;
 	}
 
 }

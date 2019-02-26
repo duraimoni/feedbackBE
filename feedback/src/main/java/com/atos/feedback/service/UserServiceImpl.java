@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
 	public UserVO findUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
 		UserVO userVo = new UserVO();
+		userVo.setDomain(user.getAppUser().getDomain().getDomainId());
+		user.getAppUser().getProduct().getProductId();
 		BeanUtils.copyProperties(user, userVo);
 		return userVo;
 	}

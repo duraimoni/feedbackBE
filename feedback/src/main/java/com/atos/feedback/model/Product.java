@@ -36,15 +36,19 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy="product")
 	private List<AppUser> appUsers;
 
+	//bi-directional many-to-one association to Domain
+	@ManyToOne
+	@JoinColumn(name="domain_id")
+	private Domain domain;
+
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="product_owner")
 	private User user;
 
-	//bi-directional many-to-one association to Domain
-	@ManyToOne
-	@JoinColumn(name="domain_id")
-	private Domain domain;
+	//bi-directional many-to-one association to Application
+	@OneToMany(mappedBy="product")
+	private List<Application> applications;
 
 	public Product() {
 	}
@@ -119,6 +123,14 @@ public class Product implements Serializable {
 		return appUser;
 	}
 
+	public Domain getDomain() {
+		return this.domain;
+	}
+
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
 	public User getUser() {
 		return this.user;
 	}
@@ -127,12 +139,26 @@ public class Product implements Serializable {
 		this.user = user;
 	}
 
-	public Domain getDomain() {
-		return this.domain;
+	public List<Application> getApplications() {
+		return this.applications;
 	}
 
-	public void setDomain(Domain domain) {
-		this.domain = domain;
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	public Application addApplication(Application application) {
+		getApplications().add(application);
+		application.setProduct(this);
+
+		return application;
+	}
+
+	public Application removeApplication(Application application) {
+		getApplications().remove(application);
+		application.setProduct(null);
+
+		return application;
 	}
 
 }
