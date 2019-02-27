@@ -41,10 +41,10 @@ public class AppUser implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user1;
 
-	//bi-directional one-to-one association to User
+ 	//bi-directional one-to-one association to User
 	@OneToOne
 	@JoinColumn(name="app_user_id")
-	private User user2;
+	private User user2; 
 
 	//bi-directional many-to-one association to Application
 	@ManyToOne
@@ -110,13 +110,13 @@ public class AppUser implements Serializable {
 		this.user1 = user1;
 	}
 
-	public User getUser2() {
+ 	public User getUser2() {
 		return this.user2;
 	}
 
 	public void setUser2(User user2) {
 		this.user2 = user2;
-	}
+	} 
 
 	public Application getApplication() {
 		return this.application;

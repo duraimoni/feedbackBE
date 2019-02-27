@@ -31,14 +31,14 @@ public class UserController {
 		return userService.findUser(userId);
 	}
 
-	@GetMapping("update/{userId}")
+	@PostMapping("update/{userId}")
 	public UserVO update(@RequestBody UserVO user) {
 		return userService.saveUser(user);
 	}
 
-	@GetMapping("delete/{userId}")
-	public UserVO delete(@PathVariable final Long userId) {
-		return userService.findUser(userId);
+	@PostMapping("delete/{userId}")
+	public String delete(@PathVariable final Long userId) {
+		return userService.delete(userId);
 	}
 
 	@GetMapping("all")

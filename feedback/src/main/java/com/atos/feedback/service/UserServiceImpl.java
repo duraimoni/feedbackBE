@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
 		User userRet = userRepository.save(user);
-		
+
 		AppUser appUser = null;
 		if (userRet.getAppUser() == null) {
 			appUser = new AppUser();
@@ -50,8 +50,9 @@ public class UserServiceImpl implements UserService {
 			appUser.setProduct(product);
 			appUser.setApplication(application);
 			appUser.setUser1(userRet);
+		} else {
+			appUser = userRet.getAppUser();
 		}
-		appUser = userRet.getAppUser();
 		appUserRepository.save(appUser);
 
 		return findUser(userRet.getUserId());
@@ -70,11 +71,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean delete(Long userId) {
+	public String delete(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
 		user.setStatus(0);
 		userRepository.save(user);
-		return true;
+		return "OK";
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public class User implements Serializable {
 
 	private String password;
 
-	private int status;
+	private int status=1;
 
 	private Timestamp updtime;
 
@@ -40,7 +40,7 @@ public class User implements Serializable {
 	private List<AppUser> appUsers;
 
 	//bi-directional one-to-one association to AppUser
-	@OneToOne(mappedBy="user2",cascade = {CascadeType.ALL})
+	@OneToOne(mappedBy="user1",cascade = {CascadeType.ALL})
 	private AppUser appUser;
 
 	//bi-directional many-to-one association to Product

@@ -9,7 +9,7 @@ public interface UserService {
 
 	UserVO findUser(Long userId);
 
-	boolean delete(Long userId);
+	String delete(Long userId);
 
 	List<UserVO> findAll();
 }
