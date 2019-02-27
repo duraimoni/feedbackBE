@@ -8,6 +8,15 @@ public class UserVO {
 	private String password;
 	private Integer domain;
 	private Integer product;
+	private String userName;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public Long getUserId() {
 		return userId;
