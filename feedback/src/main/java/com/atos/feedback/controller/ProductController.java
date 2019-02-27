@@ -12,7 +12,7 @@ public class ProductController {
 
     ProductService productService;
 
-    /*@PostMapping("add")
+    @PostMapping("add")
     public String addProduct() {
         productService.addProduct();
         return "";
@@ -33,5 +33,5 @@ public class ProductController {
     @GetMapping("all")
 	public List<ProductVO> findAll() {
 		return null;
-	}*/
+	}
 }
