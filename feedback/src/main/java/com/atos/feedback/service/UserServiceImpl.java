@@ -4,6 +4,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.atos.feedback.model.AppUser;
+import com.atos.feedback.model.Application;
+import com.atos.feedback.model.Product;
 import com.atos.feedback.model.User;
 import com.atos.feedback.repository.UserRepository;
 import com.atos.feedback.vo.UserVO;
@@ -18,6 +21,14 @@ public class UserServiceImpl implements UserService {
 	public String saveUser(UserVO userVo) {
 		
 		User user = new User();
+		BeanUtils.copyProperties(userVo, user);
+		AppUser appUser = new AppUser();
+		Product product = new Product();
+		product.setProductId(1);
+		appUser.setProduct(product);
+		Application application = new Application();
+		application.setAppId(1);
+		user.setAppUser(appUser);
 		userRepository.save(user);
 		return null;
 	}

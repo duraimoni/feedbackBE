@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 26, 2019 at 12:49 PM
+-- Generation Time: Feb 26, 2019 at 04:06 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -29,16 +29,23 @@ USE `feedback`;
 --
 
 CREATE TABLE IF NOT EXISTS `application` (
-  `app_id` int(3) NOT NULL,
+  `app_id` int(3) NOT NULL AUTO_INCREMENT,
   `app_name` varchar(100) NOT NULL,
   `app_desc` varchar(200) NOT NULL,
   `product_id` int(3) NOT NULL,
   `updtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updby` int(11) NOT NULL,
+  `updby` varchar(11) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`app_id`),
   KEY `product_id` (`product_id`,`updby`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`app_id`, `app_name`, `app_desc`, `product_id`, `updtime`, `updby`, `status`) VALUES
+(1, 'myapplication', 'ethos', 1, '2019-02-26 15:27:23', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -47,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `application` (
 --
 
 CREATE TABLE IF NOT EXISTS `app_user` (
-  `app_user_id` int(8) NOT NULL,
+  `app_user_id` int(8) NOT NULL AUTO_INCREMENT,
   `app_id` int(4) NOT NULL,
   `domain_id` int(4) NOT NULL,
   `product_id` int(4) NOT NULL,
@@ -59,8 +66,16 @@ CREATE TABLE IF NOT EXISTS `app_user` (
   KEY `app_id` (`app_id`,`user_id`),
   KEY `user_id` (`user_id`),
   KEY `domain_id` (`domain_id`,`product_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `product_id` (`product_id`),
+  KEY `app_id_2` (`app_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `app_user`
+--
+
+INSERT INTO `app_user` (`app_user_id`, `app_id`, `domain_id`, `product_id`, `user_id`, `updtime`, `updby`, `status`) VALUES
+(1, 1, 1, 1, 1, '2019-02-26 15:28:20', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -69,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `app_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `domain` (
-  `domain_id` int(2) NOT NULL,
+  `domain_id` int(2) NOT NULL AUTO_INCREMENT,
   `domain_name` varchar(10) NOT NULL,
   `domain_desc` varchar(250) NOT NULL,
   `domain_leader` int(4) NOT NULL,
@@ -79,7 +94,14 @@ CREATE TABLE IF NOT EXISTS `domain` (
   PRIMARY KEY (`domain_id`),
   KEY `domain_leader` (`domain_leader`),
   KEY `domain_id` (`domain_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `domain`
+--
+
+INSERT INTO `domain` (`domain_id`, `domain_name`, `domain_desc`, `domain_leader`, `status`, `updtime`, `updby`) VALUES
+(1, 'RE', 'RE nre', 1, 1, '2019-02-26 12:58:00', '');
 
 -- --------------------------------------------------------
 
@@ -105,7 +127,7 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `product` (
-  `product_id` int(4) NOT NULL,
+  `product_id` int(4) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(100) NOT NULL,
   `product_descrption` varchar(250) NOT NULL,
   `product_owner` int(4) NOT NULL,
@@ -117,7 +139,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   UNIQUE KEY `product_name` (`product_name`),
   KEY `product_owner` (`product_owner`),
   KEY `domain_id` (`domain_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `product_name`, `product_descrption`, `product_owner`, `updtime`, `updby`, `status`, `domain_id`) VALUES
+(1, 'Nre', 'my project', 1, '2019-02-26 15:02:41', '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -183,18 +212,17 @@ ALTER TABLE `application`
 -- Constraints for table `app_user`
 --
 ALTER TABLE `app_user`
-  ADD CONSTRAINT `app_user_ibfk_5` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
-  ADD CONSTRAINT `app_user_ibfk_1` FOREIGN KEY (`app_id`) REFERENCES `application` (`app_id`),
+  ADD CONSTRAINT `app_user_ibfk_8` FOREIGN KEY (`app_id`) REFERENCES `application` (`app_id`),
   ADD CONSTRAINT `app_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `app_user_ibfk_3` FOREIGN KEY (`app_user_id`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `app_user_ibfk_4` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`domain_id`);
+  ADD CONSTRAINT `app_user_ibfk_6` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`domain_id`),
+  ADD CONSTRAINT `app_user_ibfk_7` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 
 --
 -- Constraints for table `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_3` FOREIGN KEY (`product_owner`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `product_ibfk_2` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`domain_id`);
+  ADD CONSTRAINT `product_ibfk_4` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`domain_id`);
 
 --
 -- Constraints for table `user_role`
