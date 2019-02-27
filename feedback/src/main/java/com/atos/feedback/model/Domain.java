@@ -18,7 +18,7 @@ public class Domain implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="domain_id")
-	private int domainId;
+	private Long domainId;
 
 	@Column(name="domain_desc")
 	private String domainDesc;
@@ -46,11 +46,11 @@ public class Domain implements Serializable {
 	public Domain() {
 	}
 
-	public int getDomainId() {
+	public Long getDomainId() {
 		return this.domainId;
 	}
 
-	public void setDomainId(int domainId) {
+	public void setDomainId(Long domainId) {
 		this.domainId = domainId;
 	}
 
