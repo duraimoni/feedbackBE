@@ -1,5 +1,7 @@
 package com.atos.feedback.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
@@ -21,50 +23,64 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	AppUserRepository appUserRepository;
-	
+
 	@Override
-	public String saveUser(UserVO userVo) {
-		
+	public UserVO saveUser(UserVO userVo) {
+
 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
 		User userRet = userRepository.save(user);
 		
-		AppUser appUser = new AppUser();
-		Product product = new Product();
-		product.setProductId(1);
-		
-		Application application = new Application();
-		application.setAppId(1);
-		
-		Domain domain = new Domain();
-		domain.setDomainId(1);
-		
-		appUser.setDomain(domain);
-		appUser.setProduct(product);
-		appUser.setApplication(application);
-		appUser.setUser1(userRet);
-		
-		
-		
-		
-		//appUser.setUser1(user1);
+		AppUser appUser = null;
+		if (userRet.getAppUser() == null) {
+			appUser = new AppUser();
+			Product product = new Product();
+			product.setProductId(1);
+
+			Application application = new Application();
+			application.setAppId(1);
+
+			Domain domain = new Domain();
+			domain.setDomainId(1);
+
+			appUser.setDomain(domain);
+			appUser.setProduct(product);
+			appUser.setApplication(application);
+			appUser.setUser1(userRet);
+		}
+		appUser = userRet.getAppUser();
 		appUserRepository.save(appUser);
-		//user.setAppUser(appUser);
-		//userRepository.save(user);
-		return null;
+
+		return findUser(userRet.getUserId());
 	}
 
 	@Override
 	public UserVO findUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
 		UserVO userVo = new UserVO();
-		userVo.setDomain(user.getAppUser().getDomain().getDomainId());
-		user.getAppUser().getProduct().getProductId();
 		BeanUtils.copyProperties(user, userVo);
+		if (user.getAppUser() != null) {
+			userVo.setDomain(user.getAppUser().getDomain().getDomainId());
+			userVo.setProduct(user.getAppUser().getProduct().getProductId());
+		}
 		return userVo;
+	}
+
+	@Override
+	public boolean delete(Long userId) {
+		User user = userRepository.findById(userId).orElse(new User());
+		user.setStatus(0);
+		userRepository.save(user);
+		return true;
+	}
+
+	@Override
+	public List<UserVO> findAll() {
+		userRepository.findAll();
+		return null;
 	}
 
 }

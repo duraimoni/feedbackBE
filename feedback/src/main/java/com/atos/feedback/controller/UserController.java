@@ -21,19 +21,28 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("register")
-	public String registerUser(@RequestBody UserVO user) {
-		userService.saveUser(user);
-		return "";
+	public UserVO registerUser(@RequestBody UserVO user) {
+
+		return userService.saveUser(user);
 	}
-	
+
 	@GetMapping("{userId}")
 	public UserVO findUser(@PathVariable final Long userId) {
 		return userService.findUser(userId);
 	}
+
+	@GetMapping("update/{userId}")
+	public UserVO update(@RequestBody UserVO user) {
+		return userService.saveUser(user);
+	}
+
+	@GetMapping("delete/{userId}")
+	public UserVO delete(@PathVariable final Long userId) {
+		return userService.findUser(userId);
+	}
+
 	@GetMapping("all")
 	public List<UserVO> findAll() {
-		System.out.println("Return");
-		return null;
-		
+		return userService.findAll();
 	}
 }
