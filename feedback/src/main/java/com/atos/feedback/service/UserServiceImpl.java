@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 			application.setAppId(1);
 
 			Domain domain = new Domain();
-		//	domain.setDomainId(1);
+			domain.setDomainId(1l);
 
 			appUser.setDomain(domain);
 			appUser.setProduct(product);
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		UserVO userVo = new UserVO();
 		BeanUtils.copyProperties(user, userVo);
 		if (user.getAppUser() != null) {
-			//userVo.setDomain(user.getAppUser().getDomain().getDomainId());
+			userVo.setDomain(user.getAppUser().getDomain().getDomainId());
 			userVo.setProduct(user.getAppUser().getProduct().getProductId());
 		}
 		return userVo;

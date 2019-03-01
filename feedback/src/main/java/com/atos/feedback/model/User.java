@@ -5,59 +5,59 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public User(User user) {
+		this.userId = user.getUserId();
+		this.roles = user.getRoles();
+		this.lastName = user.getLastName();
+		this.userName = user.getUserName();
+		this.password = user.getPassword();
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
 	private Long userId;
 
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
 	private String password;
 
-	private int status=1;
+	private int status = 1;
 
 	private Timestamp updtime;
 
-	@Column(name="user_name")
+	@Column(name = "user_name")
 	private String userName;
 
-	//bi-directional many-to-one association to AppUser
-	@OneToMany(mappedBy="user1")
+	// bi-directional many-to-one association to AppUser
+	@OneToMany(mappedBy = "user1")
 	private List<AppUser> appUsers;
 
-	//bi-directional one-to-one association to AppUser
-	@OneToOne(mappedBy="user1",cascade = {CascadeType.ALL})
+	// bi-directional one-to-one association to AppUser
+	@OneToOne(mappedBy = "user1", cascade = { CascadeType.ALL })
 	private AppUser appUser;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Product
+	@OneToMany(mappedBy = "user")
 	private List<Product> products;
 
-	//bi-directional many-to-many association to Role
+	// bi-directional many-to-many association to Role
 	@ManyToMany
-	@JoinTable(
-		name="user_role"
-		, joinColumns={
-			@JoinColumn(name="user_id")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="role_id")
-			}
-		)
+	@JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_id") })
 	private List<Role> roles;
 
 	public User() {

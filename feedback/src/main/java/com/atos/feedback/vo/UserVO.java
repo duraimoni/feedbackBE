@@ -6,7 +6,7 @@ public class UserVO {
 	private String firstName;
 	private String lastName;
 	private String password;
-	private Integer domain;
+	private Long domain;
 	private Integer product;
 	private String userName;
 
@@ -50,11 +50,11 @@ public class UserVO {
 		this.password = password;
 	}
 
-	public Integer getDomain() {
+	public Long getDomain() {
 		return domain;
 	}
 
-	public void setDomain(Integer domain) {
+	public void setDomain(Long domain) {
 		this.domain = domain;
 	}
 

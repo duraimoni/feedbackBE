@@ -1,5 +1,7 @@
 package com.atos.feedback.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,6 @@ public class DomainController {
 
 	@PostMapping("save")
 	public DomainVO registerUser(@RequestBody DomainVO vomainVO) {
-
 		return domainService.save(vomainVO);
 	}
 
@@ -28,5 +29,10 @@ public class DomainController {
 	public DomainVO findUser(@PathVariable final Long domainId) {
 		return domainService.find(domainId);
 	}
- 
+
+	@GetMapping("dropdown")
+	public List<DomainVO> getDropdownVal() {
+		return domainService.findAll();
+	}
+
 }

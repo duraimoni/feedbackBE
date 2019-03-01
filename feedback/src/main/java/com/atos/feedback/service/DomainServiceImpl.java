@@ -1,5 +1,6 @@
 package com.atos.feedback.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -44,8 +45,26 @@ public class DomainServiceImpl implements DomainService {
 
 	@Override
 	public List<DomainVO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Domain> domainLst = domainRepository.findAll();
+		List<DomainVO> domainVoLst = new ArrayList<>();
+		domainLst.forEach(domain -> {
+			DomainVO domainVO = new DomainVO();
+			BeanUtils.copyProperties(domain, domainVO);
+			domainVoLst.add(domainVO);
+		});
+		return domainVoLst;
+	}
+
+	@Override
+	public List<DomainVO> dropDown() {
+		List<Domain> domainLst = domainRepository.findAll();
+		List<DomainVO> domainVoLst = new ArrayList<>();
+		domainLst.forEach(domain -> {
+			DomainVO domainVO = new DomainVO();
+			BeanUtils.copyProperties(domain, domainVO);
+			domainVoLst.add(domainVO);
+		});
+		return domainVoLst;
 	}
 
 }

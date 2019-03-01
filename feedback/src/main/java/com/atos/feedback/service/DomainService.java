@@ -13,4 +13,6 @@ public interface DomainService {
 	String delete(Long domainId);
 
 	List<DomainVO> findAll();
+	
+	List<DomainVO> dropDown();
 }
