@@ -3,6 +3,7 @@ package com.atos.feedback.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +41,7 @@ public class UserController {
 	public String delete(@PathVariable final Long userId) {
 		return userService.delete(userId);
 	}
-
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("all")
 	public List<UserVO> findAll() {
 		return userService.findAll();
