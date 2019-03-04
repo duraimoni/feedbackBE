@@ -23,6 +23,7 @@ public class User implements Serializable {
 		this.lastName = user.getLastName();
 		this.userName = user.getUserName();
 		this.password = user.getPassword();
+		this.email = user.getEmail();
 	}
 
 	@Id
@@ -44,6 +45,9 @@ public class User implements Serializable {
 
 	@Column(name = "user_name")
 	private String userName;
+
+	@Column(name = "email")
+	private String email;
 
 	// bi-directional many-to-one association to AppUser
 	@OneToMany(mappedBy = "user1")
@@ -180,6 +184,14 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

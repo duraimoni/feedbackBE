@@ -2,7 +2,7 @@ package com.atos.feedback.vo;
 
 public class ProductVO {
 
-	private int productId;
+	private Long productId;
 	private String productDescrption;
 	private String productName;
 	private int status;
@@ -41,11 +41,11 @@ public class ProductVO {
 		this.productName = productName;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
