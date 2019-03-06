@@ -57,4 +57,17 @@ public class ProductServiceImpl implements ProductService {
 		});
 		return productVOLst;
 	}
+
+	@Override
+	public List<ProductVO> findAll() {
+	 
+		List<Product> productLst = productRepository.findAll();
+		List<ProductVO> productVOLst = new ArrayList<>();
+		productLst.forEach(product -> {
+			ProductVO productVo = new ProductVO();
+			BeanUtils.copyProperties(product, productVo);
+			productVOLst.add(productVo);
+		});
+		return productVOLst;
+	}
 }

@@ -7,7 +7,7 @@ public class UserVO {
 	private String lastName;
 	private String password;
 	private Long domain;
-	private Integer product;
+	private Long product;
 	private String userName;
 	private String email;
 
@@ -59,11 +59,11 @@ public class UserVO {
 		this.domain = domain;
 	}
 
-	public Integer getProduct() {
+	public Long getProduct() {
 		return product;
 	}
 
-	public void setProduct(Integer product) {
+	public void setProduct(Long product) {
 		this.product = product;
 	}
 

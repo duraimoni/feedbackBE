@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		if (userRet.getAppUser() == null) {
 			appUser = new AppUser();
 			Product product = new Product();
-			product.setProductId(1);
+			product.setProductId(1l);
 
 			Application application = new Application();
 			application.setAppId(1);

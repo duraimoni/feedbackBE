@@ -35,4 +35,9 @@ public class ProductController {
 	public List<ProductVO> findByDomainId(@PathVariable final Long domainId) {
 		return productService.getProductsBuDomain(domainId);
 	}
+	
+	@GetMapping("all")
+	public List<ProductVO> findAll() {
+		return productService.findAll();
+	}
 }

@@ -14,4 +14,5 @@ public interface ProductService {
 	 * String deleteProduct(Product product);
 	 */
 	List<ProductVO> getProductsBuDomain(Long domainId);
+	List<ProductVO> findAll();
 }
