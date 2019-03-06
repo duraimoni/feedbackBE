@@ -1,5 +1,6 @@
 package com.atos.feedback.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ import com.atos.feedback.model.Product;
 import com.atos.feedback.model.User;
 import com.atos.feedback.repository.AppUserRepository;
 import com.atos.feedback.repository.UserRepository;
+import com.atos.feedback.vo.DomainVO;
 import com.atos.feedback.vo.UserVO;
 
 @Transactional
@@ -80,8 +82,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserVO> findAll() {
-		userRepository.findAll();
-		return null;
+		List<User> userLst = userRepository.findAll();
+		List<UserVO> domainVoLst = new ArrayList<>();
+		userLst.forEach(User -> {
+			UserVO userVO = new UserVO();
+			BeanUtils.copyProperties(User, userVO);
+			domainVoLst.add(userVO);
+		});
+		return domainVoLst;
 	}
 
 }

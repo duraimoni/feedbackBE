@@ -41,7 +41,7 @@ public class UserController {
 	public String delete(@PathVariable final Long userId) {
 		return userService.delete(userId);
 	}
-	@PreAuthorize("hasRole('ROLE_USER')")
+//	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("all")
 	public List<UserVO> findAll() {
 		return userService.findAll();
