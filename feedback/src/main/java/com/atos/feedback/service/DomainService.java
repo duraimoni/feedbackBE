@@ -10,7 +10,7 @@ public interface DomainService {
 
 	DomainVO find(Long domainId);
 
-	String delete(Long domainId);
+	void delete(Long domainId);
 
 	List<DomainVO> findAll();
 	

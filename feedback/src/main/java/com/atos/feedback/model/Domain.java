@@ -1,9 +1,19 @@
 package com.atos.feedback.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -12,6 +22,9 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Domain.findAll", query="SELECT d FROM Domain d")
+@NamedQuery(name="Domain.findAllByStatus", query="SELECT d FROM Domain d WHERE d.status=1")
+@Transactional
+@NamedQuery(name="Domain.updateStatus", query="UPDATE Domain d SET d.status=-1 WHERE d.domainId= :domainId")
 public class Domain implements Serializable {
 	private static final long serialVersionUID = 1L;
 

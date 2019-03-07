@@ -3,6 +3,7 @@ package com.atos.feedback.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +22,16 @@ public class DomainController {
 	DomainService domainService;
 
 	@PostMapping("save")
-	public DomainVO registerUser(@RequestBody DomainVO vomainVO) {
+	public DomainVO addDomain(@RequestBody DomainVO vomainVO) {
 		return domainService.save(vomainVO);
 	}
 
+	@DeleteMapping("delete/{domainId}")
+	public String deleteDomain(@PathVariable final Long domainId) {
+		domainService.delete(domainId);
+		return "OK";
+	}
+	
 	@GetMapping("{domainId}")
 	public DomainVO findUser(@PathVariable final Long domainId) {
 		return domainService.find(domainId);

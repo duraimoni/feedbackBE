@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.atos.feedback.model.Domain;
 import com.atos.feedback.repository.DomainRepository;
 import com.atos.feedback.vo.DomainVO;
-import com.atos.feedback.vo.UserVO;
 
 @Transactional
 @Service
@@ -38,14 +37,13 @@ public class DomainServiceImpl implements DomainService {
 	}
 
 	@Override
-	public String delete(Long domainId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(Long domainId) {
+		domainRepository.updateStatus(domainId);
 	}
 
 	@Override
 	public List<DomainVO> findAll() {
-		List<Domain> domainLst = domainRepository.findAll();
+		List<Domain> domainLst = domainRepository.findAllByStatus();
 		List<DomainVO> domainVoLst = new ArrayList<>();
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
@@ -57,7 +55,7 @@ public class DomainServiceImpl implements DomainService {
 
 	@Override
 	public List<DomainVO> dropDown() {
-		List<Domain> domainLst = domainRepository.findAll();
+		List<Domain> domainLst = domainRepository.findAllByStatus();
 		List<DomainVO> domainVoLst = new ArrayList<>();
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
