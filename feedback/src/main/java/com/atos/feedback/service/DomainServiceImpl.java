@@ -24,6 +24,8 @@ public class DomainServiceImpl implements DomainService {
 	public DomainVO save(DomainVO domainVo) {
 		Domain domain = new Domain();
 		BeanUtils.copyProperties(domainVo, domain);
+		domain.setUpdby(1);
+		domain.setStatus(1);
 		domainRepository.save(domain);
 		return null;
 	}

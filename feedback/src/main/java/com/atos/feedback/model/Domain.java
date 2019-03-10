@@ -44,7 +44,7 @@ public class Domain implements Serializable {
 
 	private int status;
 
-	private String updby;
+	private Integer updby;
 
 	private Timestamp updtime;
 
@@ -99,11 +99,11 @@ public class Domain implements Serializable {
 		this.status = status;
 	}
 
-	public String getUpdby() {
+	public Integer getUpdby() {
 		return this.updby;
 	}
 
-	public void setUpdby(String updby) {
+	public void setUpdby(Integer updby) {
 		this.updby = updby;
 	}
 

@@ -21,9 +21,9 @@ public class DomainController {
 	@Autowired
 	DomainService domainService;
 
-	@PostMapping("save")
-	public DomainVO addDomain(@RequestBody DomainVO vomainVO) {
-		return domainService.save(vomainVO);
+	@PostMapping("add")
+	public DomainVO addDomain(@RequestBody DomainVO domainVO) {
+		return domainService.save(domainVO);
 	}
 
 	@DeleteMapping("delete/{domainId}")
