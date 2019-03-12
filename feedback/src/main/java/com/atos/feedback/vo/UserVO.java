@@ -10,6 +10,7 @@ public class UserVO {
 	private Long product;
 	private String userName;
 	private String email;
+	private List<>
 
 	public String getUserName() {
 		return userName;

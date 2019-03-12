@@ -6,7 +6,7 @@ import com.atos.feedback.model.Product;
 import com.atos.feedback.vo.ProductVO;
 
 public interface ProductService {
-	String addProduct(Product product);
+	String addProduct(ProductVO productVo);
 
 	/*
 	 * String updateProduct(Product product);
@@ -14,5 +14,10 @@ public interface ProductService {
 	 * String deleteProduct(Product product);
 	 */
 	List<ProductVO> getProductsBuDomain(Long domainId);
+
+	ProductVO findById(Long productId);
+
 	List<ProductVO> findAll();
+
+	void delete(Long productId);
 }

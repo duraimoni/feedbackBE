@@ -35,6 +35,8 @@ public class DomainServiceImpl implements DomainService {
 		Domain domain = domainRepository.findById(domainId).orElse(new Domain());
 		DomainVO domainVo = new DomainVO();
 		BeanUtils.copyProperties(domain, domainVo);
+		domainVo.setDomainLeader(domain.getUser().getFirstName());
+		domainVo.setDomainLeaderId(domain.getUser().getUserId());
 		return domainVo;
 	}
 
@@ -50,6 +52,8 @@ public class DomainServiceImpl implements DomainService {
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
 			BeanUtils.copyProperties(domain, domainVO);
+			domainVO.setDomainLeader(domain.getUser().getFirstName());
+			domainVO.setDomainLeaderId(domain.getUser().getUserId());
 			domainVoLst.add(domainVO);
 		});
 		return domainVoLst;
@@ -62,6 +66,7 @@ public class DomainServiceImpl implements DomainService {
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
 			BeanUtils.copyProperties(domain, domainVO);
+			
 			domainVoLst.add(domainVO);
 		});
 		return domainVoLst;

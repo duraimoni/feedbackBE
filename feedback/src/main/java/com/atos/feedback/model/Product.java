@@ -2,6 +2,9 @@ package com.atos.feedback.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,6 +15,8 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@Transactional
+@NamedQuery(name="Product.updateStatus", query="UPDATE Product d SET d.status=-1 WHERE d.productId= :productId")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 

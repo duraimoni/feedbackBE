@@ -12,4 +12,6 @@ public interface UserService {
 	String delete(Long userId);
 
 	List<UserVO> findAll();
+	
+	String approve(Long userId);
 }

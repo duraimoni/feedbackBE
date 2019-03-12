@@ -74,9 +74,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String delete(Long userId) {
-		User user = userRepository.findById(userId).orElse(new User());
-		user.setStatus(0);
-		userRepository.save(user);
+		userRepository.deleteUser(userId);
 		return "OK";
 	}
 
@@ -90,6 +88,12 @@ public class UserServiceImpl implements UserService {
 			domainVoLst.add(userVO);
 		});
 		return domainVoLst;
+	}
+
+	@Override
+	public String approve(Long userId) {
+		userRepository.updateStatus(userId);
+		return "OK";
 	}
 
 }

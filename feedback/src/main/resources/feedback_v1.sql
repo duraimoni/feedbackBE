@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 26, 2019 at 04:06 PM
+-- Generation Time: Mar 10, 2019 at 04:23 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.16
 
@@ -68,14 +68,16 @@ CREATE TABLE IF NOT EXISTS `app_user` (
   KEY `domain_id` (`domain_id`,`product_id`),
   KEY `product_id` (`product_id`),
   KEY `app_id_2` (`app_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=70 ;
 
 --
 -- Dumping data for table `app_user`
 --
 
 INSERT INTO `app_user` (`app_user_id`, `app_id`, `domain_id`, `product_id`, `user_id`, `updtime`, `updby`, `status`) VALUES
-(1, 1, 1, 1, 1, '2019-02-26 15:28:20', 0, 1);
+(12, 1, 1, 1, 1, '2019-02-27 02:28:03', 0, 0),
+(25, 1, 1, 1, 24, '2019-02-27 08:16:38', 0, 0),
+(69, 1, 1, 1, 68, '2019-03-04 13:25:52', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -90,18 +92,25 @@ CREATE TABLE IF NOT EXISTS `domain` (
   `domain_leader` int(4) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   `updtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updby` varchar(100) NOT NULL,
+  `updby` int(4) NOT NULL,
   PRIMARY KEY (`domain_id`),
   KEY `domain_leader` (`domain_leader`),
   KEY `domain_id` (`domain_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=76 ;
 
 --
 -- Dumping data for table `domain`
 --
 
 INSERT INTO `domain` (`domain_id`, `domain_name`, `domain_desc`, `domain_leader`, `status`, `updtime`, `updby`) VALUES
-(1, 'RE', 'RE nre', 1, 1, '2019-02-26 12:58:00', '');
+(1, 'DI-RE', 'RE nre', 1, -1, '2019-02-26 12:58:00', 0),
+(2, 'DI-RF', 'RFC applicat', 1, 1, '2019-02-28 07:02:29', 1),
+(3, 'DI-RG', 'customes', 1, 1, '2019-02-28 07:02:52', 0),
+(71, 'DIRX', 'my app', 0, 0, '2019-03-10 13:44:49', 1),
+(72, 'RK', 'KDls', 0, 1, '2019-03-10 14:10:58', 1),
+(73, 'TF', 'JKSDF', 0, 1, '2019-03-10 14:13:26', 1),
+(74, 'hsdf', 'dsfsd', 0, 1, '2019-03-10 14:13:53', 1),
+(75, 'fsdf', 'dsf', 0, 1, '2019-03-10 14:14:26', 1);
 
 -- --------------------------------------------------------
 
@@ -118,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(1);
+(76);
 
 -- --------------------------------------------------------
 
@@ -174,16 +183,22 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_name` char(150) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   `updtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` varchar(200) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=69 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `password`, `first_name`, `last_name`, `status`, `updtime`) VALUES
-(1, 'rk', 'durai', 'Rathakrishnna', 'Duraimoni', 1, '2019-02-26 07:53:16');
+INSERT INTO `user` (`user_id`, `user_name`, `password`, `first_name`, `last_name`, `status`, `updtime`, `email`) VALUES
+(1, 'rkd', 'durai', 'Rathakrishnna', 'Duraimoni', 0, '2019-02-27 02:08:50', 'd.rathakrishnan@gmail.com'),
+(3, 'rksd', 'durai', 'Rathakrishnna', 'Duraimondi', 0, '2019-02-27 02:10:01', ''),
+(5, 'sure', 'durai', 'Rathakrishnna', 'Duraimondi', 0, '2019-02-27 02:13:12', ''),
+(13, 'd', 'durai', 'Rathakrishnna', 'Duraimondi', 0, '2019-02-27 02:28:03', ''),
+(24, 'sek', 'durai', 'sekar', 'Duraimoni', 1, '2019-02-27 08:16:38', ''),
+(68, 'd_rathakrishnan@yahoo.co.in', 'ss', 'Duraimoni', '', 1, '2019-03-04 13:25:52', 'd.rathakrishnan@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -212,10 +227,10 @@ ALTER TABLE `application`
 -- Constraints for table `app_user`
 --
 ALTER TABLE `app_user`
-  ADD CONSTRAINT `app_user_ibfk_8` FOREIGN KEY (`app_id`) REFERENCES `application` (`app_id`),
   ADD CONSTRAINT `app_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `app_user_ibfk_6` FOREIGN KEY (`domain_id`) REFERENCES `domain` (`domain_id`),
-  ADD CONSTRAINT `app_user_ibfk_7` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
+  ADD CONSTRAINT `app_user_ibfk_7` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
+  ADD CONSTRAINT `app_user_ibfk_8` FOREIGN KEY (`app_id`) REFERENCES `application` (`app_id`);
 
 --
 -- Constraints for table `product`
@@ -228,8 +243,8 @@ ALTER TABLE `product`
 -- Constraints for table `user_role`
 --
 ALTER TABLE `user_role`
-  ADD CONSTRAINT `user_role_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
-  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`);
+  ADD CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`),
+  ADD CONSTRAINT `user_role_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

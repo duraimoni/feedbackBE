@@ -1,9 +1,24 @@
 package com.atos.feedback.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The persistent class for the user database table.
@@ -13,6 +28,9 @@ import java.util.List;
 @Table(name = "user")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @NamedQuery(name = "User.findAllByStatus", query = "SELECT u FROM User u where u.status=1")
+@Transactional
+@NamedQuery(name="User.updateStatus", query="UPDATE User d SET d.status=1 WHERE d.userId= :userId")
+@NamedQuery(name="User.deleteUser", query="UPDATE User d SET d.status=0 WHERE d.userId= :userId")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 

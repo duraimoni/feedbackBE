@@ -32,18 +32,27 @@ public class UserController {
 		return userService.findUser(userId);
 	}
 
-	@PostMapping("update/{userId}")
+	@PostMapping("update")
 	public UserVO update(@RequestBody UserVO user) {
 		return userService.saveUser(user);
+	}
+
+	@PostMapping("approve/{userId}")
+	public String approve(@PathVariable final Long userId) {
+		userService.approve(userId);
+		return "OK";
 	}
 
 	@PostMapping("delete/{userId}")
 	public String delete(@PathVariable final Long userId) {
 		return userService.delete(userId);
 	}
+
 //	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("all")
 	public List<UserVO> findAll() {
 		return userService.findAll();
 	}
+	
+	//public List
 }

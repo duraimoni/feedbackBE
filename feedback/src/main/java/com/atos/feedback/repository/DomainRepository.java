@@ -13,6 +13,7 @@ public interface DomainRepository extends CrudRepository<Domain, Long> {
 	List<Domain> findAll();
 
 	List<Domain> findAllByStatus();
-	  @Modifying
+
+	@Modifying
 	void updateStatus(@Param("domainId") Long domainId);
 }

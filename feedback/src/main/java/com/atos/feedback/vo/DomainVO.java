@@ -6,6 +6,15 @@ public class DomainVO {
 	private String domainName;
 	private String domainDesc;
 	private String domainLeader;
+	private Long domainLeaderId;
+
+	public Long getDomainLeaderId() {
+		return domainLeaderId;
+	}
+
+	public void setDomainLeaderId(Long domainLeaderId) {
+		this.domainLeaderId = domainLeaderId;
+	}
 
 	public Long getDomainId() {
 		return domainId;

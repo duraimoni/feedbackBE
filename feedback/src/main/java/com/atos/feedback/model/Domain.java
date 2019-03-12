@@ -9,8 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +38,9 @@ public class Domain implements Serializable {
 	@Column(name="domain_desc")
 	private String domainDesc;
 
-	@Column(name="domain_leader")
+/*	@Column(name="domain_leader")
 	private int domainLeader;
-
+*/
 	@Column(name="domain_name")
 	private String domainName;
 
@@ -56,6 +58,10 @@ public class Domain implements Serializable {
 	@OneToMany(mappedBy="domain")
 	private List<Product> products;
 
+	@OneToOne
+	@JoinColumn(name="domain_leader")
+	private User user; 
+	
 	public Domain() {
 	}
 
@@ -74,7 +80,7 @@ public class Domain implements Serializable {
 	public void setDomainDesc(String domainDesc) {
 		this.domainDesc = domainDesc;
 	}
-
+/*
 	public int getDomainLeader() {
 		return this.domainLeader;
 	}
@@ -82,7 +88,7 @@ public class Domain implements Serializable {
 	public void setDomainLeader(int domainLeader) {
 		this.domainLeader = domainLeader;
 	}
-
+*/
 	public String getDomainName() {
 		return this.domainName;
 	}
@@ -157,6 +163,14 @@ public class Domain implements Serializable {
 		product.setDomain(null);
 
 		return product;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
