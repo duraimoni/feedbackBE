@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.atos.feedback.model.Domain;
 import com.atos.feedback.model.Product;
 import com.atos.feedback.repository.ProductRepository;
+import com.atos.feedback.vo.DomainVO;
 import com.atos.feedback.vo.ProductVO;
 
 @Transactional
@@ -34,9 +35,13 @@ public class ProductServiceImpl implements ProductService {
 		domain.setDomainId(domainId);
 		List<Product> productLst = productRepository.findByDomain(domain);
 		List<ProductVO> productVOLst = new ArrayList<>();
+		DomainVO domainVo = new DomainVO();
 		productLst.forEach(product -> {
 			ProductVO productVo = new ProductVO();
 			BeanUtils.copyProperties(product, productVo);
+			BeanUtils.copyProperties(product.getDomain(), domainVo);
+			productVo.setDomainVo(domainVo);
+			productVo.setProductLeader(product.getUser().getFirstName());
 			productVOLst.add(productVo);
 		});
 		return productVOLst;
@@ -46,9 +51,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> findAll() {
 		List<Product> productLst = productRepository.findAll();
 		List<ProductVO> productVOLst = new ArrayList<>();
+		DomainVO domainVo = new DomainVO();
 		productLst.forEach(product -> {
 			ProductVO productVo = new ProductVO();
 			BeanUtils.copyProperties(product, productVo);
+			BeanUtils.copyProperties(product.getDomain(), domainVo);
+			productVo.setDomainVo(domainVo);
+			productVo.setProductLeader(product.getUser().getFirstName());
 			productVOLst.add(productVo);
 		});
 		return productVOLst;

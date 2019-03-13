@@ -2,6 +2,7 @@ package com.atos.feedback.service;
 
 import java.util.List;
 
+import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
 public interface UserService {
@@ -14,4 +15,6 @@ public interface UserService {
 	List<UserVO> findAll();
 	
 	String approve(Long userId);
+	
+	List<RoleVO> findRoles();
 }

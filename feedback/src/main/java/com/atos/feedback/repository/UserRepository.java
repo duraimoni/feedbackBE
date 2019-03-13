@@ -15,6 +15,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	@Override
 	List<User> findAll();
 	
+	List<User> findAllByStatus();
+	
+	
 	@Modifying
 	void updateStatus(@Param("userId") Long userId);
 	

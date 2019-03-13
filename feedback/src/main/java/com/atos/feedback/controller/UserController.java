@@ -3,15 +3,17 @@ package com.atos.feedback.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.feedback.service.UserService;
+import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
 @RestController
@@ -37,13 +39,13 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
-	@PostMapping("approve/{userId}")
+	@GetMapping("approve/{userId}")
 	public String approve(@PathVariable final Long userId) {
 		userService.approve(userId);
 		return "OK";
 	}
 
-	@PostMapping("delete/{userId}")
+	@DeleteMapping("delete/{userId}")
 	public String delete(@PathVariable final Long userId) {
 		return userService.delete(userId);
 	}
@@ -53,6 +55,9 @@ public class UserController {
 	public List<UserVO> findAll() {
 		return userService.findAll();
 	}
-	
-	//public List
+
+	@GetMapping("roles")
+	public List<RoleVO> findRoles() {
+		return userService.findRoles();
+	}
 }

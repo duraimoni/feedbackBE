@@ -8,15 +8,18 @@ import javax.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.atos.feedback.model.AppUser;
 import com.atos.feedback.model.Application;
 import com.atos.feedback.model.Domain;
 import com.atos.feedback.model.Product;
+import com.atos.feedback.model.Role;
 import com.atos.feedback.model.User;
 import com.atos.feedback.repository.AppUserRepository;
+import com.atos.feedback.repository.RoleRepository;
 import com.atos.feedback.repository.UserRepository;
-import com.atos.feedback.vo.DomainVO;
+import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
 @Transactional
@@ -28,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	AppUserRepository appUserRepository;
+
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Override
 	public UserVO saveUser(UserVO userVo) {
@@ -73,6 +79,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@ResponseBody
 	public String delete(Long userId) {
 		userRepository.deleteUser(userId);
 		return "OK";
@@ -80,11 +87,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserVO> findAll() {
-		List<User> userLst = userRepository.findAll();
+		List<User> userLst = userRepository.findAllByStatus();
 		List<UserVO> domainVoLst = new ArrayList<>();
-		userLst.forEach(User -> {
+		userLst.forEach(user -> {
 			UserVO userVO = new UserVO();
-			BeanUtils.copyProperties(User, userVO);
+			BeanUtils.copyProperties(user, userVO);
 			domainVoLst.add(userVO);
 		});
 		return domainVoLst;
@@ -94,6 +101,18 @@ public class UserServiceImpl implements UserService {
 	public String approve(Long userId) {
 		userRepository.updateStatus(userId);
 		return "OK";
+	}
+
+	@Override
+	public List<RoleVO> findRoles() {
+		List<Role> roleLst = roleRepository.findAll();
+		List<RoleVO> roleVoLst = new ArrayList<>();
+		roleLst.forEach(role -> {
+			RoleVO roleVO = new RoleVO();
+			BeanUtils.copyProperties(role, roleVO);
+			roleVoLst.add(roleVO);
+		});
+		return roleVoLst;
 	}
 
 }

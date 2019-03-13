@@ -14,7 +14,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p where p.status !=-1")
 @Transactional
 @NamedQuery(name="Product.updateStatus", query="UPDATE Product d SET d.status=-1 WHERE d.productId= :productId")
 public class Product implements Serializable {

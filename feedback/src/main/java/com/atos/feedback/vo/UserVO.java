@@ -10,7 +10,16 @@ public class UserVO {
 	private Long product;
 	private String userName;
 	private String email;
-	private List<>
+	private int status;
+	//private List
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public String getUserName() {
 		return userName;

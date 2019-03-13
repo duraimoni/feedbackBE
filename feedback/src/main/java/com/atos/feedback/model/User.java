@@ -27,10 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Entity
 @Table(name = "user")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-@NamedQuery(name = "User.findAllByStatus", query = "SELECT u FROM User u where u.status=1")
+@NamedQuery(name = "User.findAllByStatus", query = "SELECT u FROM User u where u.status!=-1")
 @Transactional
 @NamedQuery(name="User.updateStatus", query="UPDATE User d SET d.status=1 WHERE d.userId= :userId")
-@NamedQuery(name="User.deleteUser", query="UPDATE User d SET d.status=0 WHERE d.userId= :userId")
+@NamedQuery(name="User.deleteUser", query="UPDATE User d SET d.status=-1 WHERE d.userId= :userId")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,7 @@ public class User implements Serializable {
 
 	private String password;
 
-	private int status = 1;
+	private int status;
 
 	private Timestamp updtime;
 
