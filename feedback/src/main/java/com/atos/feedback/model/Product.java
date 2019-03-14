@@ -25,11 +25,17 @@ public class Product implements Serializable {
 	@Column(name="product_id")
 	private Long productId;
 
+	@Column(name="domain_id")
+	private int domainId;
+
 	@Column(name="product_descrption")
 	private String productDescrption;
 
 	@Column(name="product_name")
 	private String productName;
+
+	@Column(name="product_owner")
+	private int productOwner;
 
 	private int status;
 
@@ -37,23 +43,9 @@ public class Product implements Serializable {
 
 	private Timestamp updtime;
 
-	//bi-directional many-to-one association to AppUser
+	//bi-directional many-to-one association to ProdRating
 	@OneToMany(mappedBy="product")
-	private List<AppUser> appUsers;
-
-	//bi-directional many-to-one association to Domain
-	@ManyToOne
-	@JoinColumn(name="domain_id")
-	private Domain domain;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="product_owner")
-	private User user;
-
-	//bi-directional many-to-one association to Application
-	@OneToMany(mappedBy="product")
-	private List<Application> applications;
+	private List<ProdRating> prodRatings;
 
 	public Product() {
 	}
@@ -64,6 +56,14 @@ public class Product implements Serializable {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
+	}
+
+	public int getDomainId() {
+		return this.domainId;
+	}
+
+	public void setDomainId(int domainId) {
+		this.domainId = domainId;
 	}
 
 	public String getProductDescrption() {
@@ -80,6 +80,14 @@ public class Product implements Serializable {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public int getProductOwner() {
+		return this.productOwner;
+	}
+
+	public void setProductOwner(int productOwner) {
+		this.productOwner = productOwner;
 	}
 
 	public int getStatus() {
@@ -106,64 +114,26 @@ public class Product implements Serializable {
 		this.updtime = updtime;
 	}
 
-	public List<AppUser> getAppUsers() {
-		return this.appUsers;
+	public List<ProdRating> getProdRatings() {
+		return this.prodRatings;
 	}
 
-	public void setAppUsers(List<AppUser> appUsers) {
-		this.appUsers = appUsers;
+	public void setProdRatings(List<ProdRating> prodRatings) {
+		this.prodRatings = prodRatings;
 	}
 
-	public AppUser addAppUser(AppUser appUser) {
-		getAppUsers().add(appUser);
-		appUser.setProduct(this);
+	public ProdRating addProdRating(ProdRating prodRating) {
+		getProdRatings().add(prodRating);
+		prodRating.setProduct(this);
 
-		return appUser;
+		return prodRating;
 	}
 
-	public AppUser removeAppUser(AppUser appUser) {
-		getAppUsers().remove(appUser);
-		appUser.setProduct(null);
+	public ProdRating removeProdRating(ProdRating prodRating) {
+		getProdRatings().remove(prodRating);
+		prodRating.setProduct(null);
 
-		return appUser;
-	}
-
-	public Domain getDomain() {
-		return this.domain;
-	}
-
-	public void setDomain(Domain domain) {
-		this.domain = domain;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public List<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(List<Application> applications) {
-		this.applications = applications;
-	}
-
-	public Application addApplication(Application application) {
-		getApplications().add(application);
-		application.setProduct(this);
-
-		return application;
-	}
-
-	public Application removeApplication(Application application) {
-		getApplications().remove(application);
-		application.setProduct(null);
-
-		return application;
+		return prodRating;
 	}
 
 }
