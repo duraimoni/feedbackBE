@@ -2,9 +2,6 @@ package com.atos.feedback.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -14,9 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p where p.status !=-1")
-@Transactional
-@NamedQuery(name="Product.updateStatus", query="UPDATE Product d SET d.status=-1 WHERE d.productId= :productId")
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,17 +20,11 @@ public class Product implements Serializable {
 	@Column(name="product_id")
 	private Long productId;
 
-	@Column(name="domain_id")
-	private int domainId;
-
 	@Column(name="product_descrption")
 	private String productDescrption;
 
 	@Column(name="product_name")
 	private String productName;
-
-	@Column(name="product_owner")
-	private int productOwner;
 
 	private int status;
 
@@ -43,9 +32,27 @@ public class Product implements Serializable {
 
 	private Timestamp updtime;
 
+	//bi-directional many-to-one association to AppUser
+	@OneToMany(mappedBy="product")
+	private List<AppUser> appUsers;
+
+	//bi-directional many-to-one association to Application
+	@OneToMany(mappedBy="product")
+	private List<Application> applications;
+
 	//bi-directional many-to-one association to ProdRating
 	@OneToMany(mappedBy="product")
 	private List<ProdRating> prodRatings;
+
+	//bi-directional many-to-one association to Domain
+	@ManyToOne
+	@JoinColumn(name="domain_id")
+	private Domain domain;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="product_owner")
+	private User user;
 
 	public Product() {
 	}
@@ -56,14 +63,6 @@ public class Product implements Serializable {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
-	}
-
-	public int getDomainId() {
-		return this.domainId;
-	}
-
-	public void setDomainId(int domainId) {
-		this.domainId = domainId;
 	}
 
 	public String getProductDescrption() {
@@ -80,14 +79,6 @@ public class Product implements Serializable {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-
-	public int getProductOwner() {
-		return this.productOwner;
-	}
-
-	public void setProductOwner(int productOwner) {
-		this.productOwner = productOwner;
 	}
 
 	public int getStatus() {
@@ -114,6 +105,50 @@ public class Product implements Serializable {
 		this.updtime = updtime;
 	}
 
+	public List<AppUser> getAppUsers() {
+		return this.appUsers;
+	}
+
+	public void setAppUsers(List<AppUser> appUsers) {
+		this.appUsers = appUsers;
+	}
+
+	public AppUser addAppUser(AppUser appUser) {
+		getAppUsers().add(appUser);
+		appUser.setProduct(this);
+
+		return appUser;
+	}
+
+	public AppUser removeAppUser(AppUser appUser) {
+		getAppUsers().remove(appUser);
+		appUser.setProduct(null);
+
+		return appUser;
+	}
+
+	public List<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
+	}
+
+	public Application addApplication(Application application) {
+		getApplications().add(application);
+		application.setProduct(this);
+
+		return application;
+	}
+
+	public Application removeApplication(Application application) {
+		getApplications().remove(application);
+		application.setProduct(null);
+
+		return application;
+	}
+
 	public List<ProdRating> getProdRatings() {
 		return this.prodRatings;
 	}
@@ -134,6 +169,22 @@ public class Product implements Serializable {
 		prodRating.setProduct(null);
 
 		return prodRating;
+	}
+
+	public Domain getDomain() {
+		return this.domain;
+	}
+
+	public void setDomain(Domain domain) {
+		this.domain = domain;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
