@@ -2,56 +2,62 @@ package com.atos.feedback.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import java.sql.Timestamp;
 import java.util.List;
-
 
 /**
  * The persistent class for the product database table.
  * 
  */
 @Entity
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+@NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p where p.status !=-1")
+@NamedQuery(name = "Product.findAllrate", query = "SELECT p FROM Product p left join ProdRating pr on p.productId=pr.product and pr.month= :month and pr.year =:year where  p.status !=-1 ")
+@Transactional
+@NamedQuery(name = "Product.updateStatus", query = "UPDATE Product d SET d.status=-1 WHERE d.productId= :productId")
+
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="product_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "product_id")
 	private Long productId;
 
-	@Column(name="product_descrption")
+	@Column(name = "product_descrption")
 	private String productDescrption;
 
-	@Column(name="product_name")
+	@Column(name = "product_name")
 	private String productName;
 
 	private int status;
 
-	private String updby;
+	private int updby;
 
 	private Timestamp updtime;
 
-	//bi-directional many-to-one association to AppUser
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to AppUser
+	@OneToMany(mappedBy = "product")
 	private List<AppUser> appUsers;
 
-	//bi-directional many-to-one association to Application
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to Application
+	@OneToMany(mappedBy = "product")
 	private List<Application> applications;
 
-	//bi-directional many-to-one association to ProdRating
-	@OneToMany(mappedBy="product")
+	// bi-directional many-to-one association to ProdRating
+	@OneToMany(mappedBy = "product")
 	private List<ProdRating> prodRatings;
 
-	//bi-directional many-to-one association to Domain
+	// bi-directional many-to-one association to Domain
 	@ManyToOne
-	@JoinColumn(name="domain_id")
+	@JoinColumn(name = "domain_id")
 	private Domain domain;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="product_owner")
+	@JoinColumn(name = "product_owner")
 	private User user;
 
 	public Product() {
@@ -89,11 +95,11 @@ public class Product implements Serializable {
 		this.status = status;
 	}
 
-	public String getUpdby() {
+	public int getUpdby() {
 		return this.updby;
 	}
 
-	public void setUpdby(String updby) {
+	public void setUpdby(int updby) {
 		this.updby = updby;
 	}
 

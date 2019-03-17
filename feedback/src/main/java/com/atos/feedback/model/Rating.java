@@ -17,7 +17,7 @@ public class Rating implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="rating_id")
-	private int ratingId;
+	private Long ratingId;
 
 	@Column(name="rating_desc")
 	private String ratingDesc;
@@ -34,11 +34,11 @@ public class Rating implements Serializable {
 	public Rating() {
 	}
 
-	public int getRatingId() {
+	public Long getRatingId() {
 		return this.ratingId;
 	}
 
-	public void setRatingId(int ratingId) {
+	public void setRatingId(Long ratingId) {
 		this.ratingId = ratingId;
 	}
 

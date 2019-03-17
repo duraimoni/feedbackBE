@@ -2,7 +2,7 @@ package com.atos.feedback.service;
 
 import java.util.List;
 
-import com.atos.feedback.model.Product;
+import com.atos.feedback.vo.ProductRateVO;
 import com.atos.feedback.vo.ProductVO;
 
 public interface ProductService {
@@ -20,4 +20,6 @@ public interface ProductService {
 	List<ProductVO> findAll();
 
 	void delete(Long productId);
+	
+	void rateProduct(ProductRateVO productRateVO);
 }

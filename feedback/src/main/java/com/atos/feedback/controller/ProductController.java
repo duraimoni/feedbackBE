@@ -30,7 +30,6 @@ public class ProductController {
 
 	@GetMapping("all")
 	public List<ProductVO> findAll(HttpSession session) {
-		System.out.println("session Value:>"+session.getId()+"-"+session.getAttribute("username"));
 		return productService.findAll();
 	}
 
@@ -39,7 +38,7 @@ public class ProductController {
 		return productService.findById(productId);
 	}
 
-	@PostMapping("add}")
+	@PostMapping("add")
 	public String add(@RequestBody ProductVO productVO) {
 		productService.addProduct(productVO);
 		return "OK";

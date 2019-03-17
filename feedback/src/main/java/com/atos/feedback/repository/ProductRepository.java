@@ -14,8 +14,9 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
 	@Override
 	List<Product> findAll();
+
+	List<Product> findAllrate(@Param("month") int month, @Param("year") int year);
+
 	@Modifying
 	void updateStatus(@Param("productId") Long productId);
 }
-
-

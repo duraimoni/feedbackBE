@@ -1,30 +1,16 @@
 package com.atos.feedback.vo;
 
-public class ProductVO {
+public class RatingVO {
 
 	private Long productId;
 	private String productDescrption;
 	private String productName;
 	private int status;
+//	private Integer domain;
 	private String productLeader;
 	private DomainVO domainVo;
 	private ProductRateVO productRateVO;
-	private Long domainId;
-	private Long productLeaderId;
-	 
 	
-	public Long getProductLeaderId() {
-		return productLeaderId;
-	}
-	public void setProductLeaderId(Long productLeaderId) {
-		this.productLeaderId = productLeaderId;
-	}
-	public Long getDomainId() {
-		return domainId;
-	}
-	public void setDomainId(Long domainId) {
-		this.domainId = domainId;
-	}
 	public Long getProductId() {
 		return productId;
 	}
@@ -33,7 +19,7 @@ public class ProductVO {
 	}
 	public String getProductDescrption() {
 		return productDescrption;
-	}	
+	}
 	public void setProductDescrption(String productDescrption) {
 		this.productDescrption = productDescrption;
 	}
