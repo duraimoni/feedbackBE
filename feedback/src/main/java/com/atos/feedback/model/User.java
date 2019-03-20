@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @NamedQuery(name="User.updateStatus", query="UPDATE User d SET d.status=1 WHERE d.userId= :userId")
 @NamedQuery(name="User.deleteUser", query="UPDATE User d SET d.status=-1 WHERE d.userId= :userId")
+@NamedQuery(name="User.changePassword", query="UPDATE User d SET d.password= :password WHERE d.userId= :userId")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -39,6 +40,7 @@ public class User implements Serializable {
 	public User(User user) {
 		this.userId = user.getUserId();
 		this.roles = user.getRoles();
+		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
 		this.userName = user.getUserName();
 		this.password = user.getPassword();

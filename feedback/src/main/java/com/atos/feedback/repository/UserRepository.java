@@ -23,7 +23,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	
 	@Modifying
 	void deleteUser(@Param("userId") Long userId);
-
-//	@Query("SELECT t.title FROM User user where t.id = :id")
-//	Optional<String> findTitleById(@Param("id") Long id);
+	
+	@Modifying
+	int changePassword(@Param("userId") Long userId,@Param("password")  String password);
+ 
 }

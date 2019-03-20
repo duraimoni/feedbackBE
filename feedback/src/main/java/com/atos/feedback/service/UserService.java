@@ -2,6 +2,8 @@ package com.atos.feedback.service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
@@ -13,8 +15,12 @@ public interface UserService {
 	String delete(Long userId);
 
 	List<UserVO> findAll();
-	
+
 	String approve(Long userId);
-	
-	List<RoleVO> findRoles();
+
+	List<RoleVO> findRoles(Long userId);
+
+	String authorize(Long userId, String roleIds);
+
+	int changePassword(Long userId, String password);
 }

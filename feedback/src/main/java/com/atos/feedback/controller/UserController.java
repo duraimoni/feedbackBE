@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +38,11 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
+	@GetMapping("changepassword/{password}")
+	public int changePasword(@PathVariable final String password) {
+		return userService.changePassword(5l, password);
+	}
+
 	@GetMapping("approve/{userId}")
 	public String approve(@PathVariable final Long userId) {
 		userService.approve(userId);
@@ -56,8 +60,14 @@ public class UserController {
 		return userService.findAll();
 	}
 
-	@GetMapping("roles")
-	public List<RoleVO> findRoles() {
-		return userService.findRoles();
+	@GetMapping("roles/{userId}")
+	public List<RoleVO> findRoles(@PathVariable final Long userId) {
+		return userService.findRoles(userId);
+	}
+
+	@GetMapping("authorize/{userId}/{roleIds}")
+	public String authorize(@PathVariable final Long userId, @PathVariable final String roleIds) {
+		userService.authorize(userId, roleIds);
+		return "OK";
 	}
 }

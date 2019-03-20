@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.atos.feedback.model.Domain;
+import com.atos.feedback.model.User;
 import com.atos.feedback.repository.DomainRepository;
+import com.atos.feedback.repository.UserRepository;
 import com.atos.feedback.vo.DomainVO;
 
 @Transactional
@@ -19,13 +21,17 @@ public class DomainServiceImpl implements DomainService {
 
 	@Autowired
 	DomainRepository domainRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	@Override
 	public DomainVO save(DomainVO domainVo) {
 		Domain domain = new Domain();
+		User user = userRepository.findById(new Long(domainVo.getDomainLeader())).orElse(new User());
 		BeanUtils.copyProperties(domainVo, domain);
 		domain.setUpdby(1);
 		domain.setStatus(1);
+		domain.setUser(user);
 		domainRepository.save(domain);
 		return null;
 	}

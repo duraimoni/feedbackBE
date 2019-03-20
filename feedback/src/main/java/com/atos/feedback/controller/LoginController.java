@@ -1,13 +1,20 @@
 package com.atos.feedback.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.atos.feedback.vo.CustomUserDetails;
+import com.atos.feedback.vo.UserVO;
 
 @RestController
 @RequestMapping("login")
@@ -20,10 +27,20 @@ public class LoginController {
 	 * "My Rating"; }
 	 */
 	@GetMapping("authenticate")
-	public Principal user(Principal user, HttpSession session) {
+	public UserVO user(Principal user, HttpSession session) {
 		System.out.println("pind" + user.getName());
 		session.setAttribute("username", user.getName());
-		System.out.println("session in login Value:>"+session.getId());
-		return user;
+		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		System.out.println("session in login Value:>" + session.getId());
+		UserVO userVo = new UserVO();
+		userVo.setSessionId(session.getId());
+		BeanUtils.copyProperties(userDetails, userVo);
+		List<String> userRoles = new ArrayList<>();
+		userDetails.getRoles().forEach(roleVal -> {
+			userRoles.add(roleVal.getRole());
+		});
+		userVo.setRoles(userRoles);
+		return userVo;
 	}
 }

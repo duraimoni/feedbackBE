@@ -1,6 +1,7 @@
 package com.atos.feedback.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,9 +17,11 @@ import com.atos.feedback.model.Domain;
 import com.atos.feedback.model.Product;
 import com.atos.feedback.model.Role;
 import com.atos.feedback.model.User;
+import com.atos.feedback.model.UserRole;
 import com.atos.feedback.repository.AppUserRepository;
 import com.atos.feedback.repository.RoleRepository;
 import com.atos.feedback.repository.UserRepository;
+import com.atos.feedback.repository.UserRoleRepository;
 import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
@@ -35,25 +38,24 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	RoleRepository roleRepository;
 
+	@Autowired
+	UserRoleRepository userRoleRepository;
+
 	@Override
 	public UserVO saveUser(UserVO userVo) {
 
 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
 		User userRet = userRepository.save(user);
-
 		AppUser appUser = null;
 		if (userRet.getAppUser() == null) {
 			appUser = new AppUser();
 			Product product = new Product();
 			product.setProductId(1l);
-
 			Application application = new Application();
 			application.setAppId(1);
-
 			Domain domain = new Domain();
 			domain.setDomainId(1l);
-
 			appUser.setDomain(domain);
 			appUser.setProduct(product);
 			appUser.setApplication(application);
@@ -88,13 +90,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserVO> findAll() {
 		List<User> userLst = userRepository.findAllByStatus();
-		List<UserVO> domainVoLst = new ArrayList<>();
+		List<UserVO> userVoLst = new ArrayList<>();
 		userLst.forEach(user -> {
 			UserVO userVO = new UserVO();
 			BeanUtils.copyProperties(user, userVO);
-			domainVoLst.add(userVO);
+			userVoLst.add(userVO);
+			List<String> userRoles = new ArrayList<>();
+			user.getRoles().forEach(roleVal -> {
+				userRoles.add(roleVal.getRole());
+			});
+			userVO.setRoles(userRoles);
 		});
-		return domainVoLst;
+		return userVoLst;
 	}
 
 	@Override
@@ -103,16 +110,50 @@ public class UserServiceImpl implements UserService {
 		return "OK";
 	}
 
+	private List<Long> getRoleIds(Long userId) {
+		List<Long> retLst = new ArrayList<>();
+		List<UserRole> userRoleLst = userRoleRepository.findByUserId(userId);
+		userRoleLst.forEach(userRole -> {
+			retLst.add(userRole.getRoleId());
+		});
+		return retLst;
+	}
+
 	@Override
-	public List<RoleVO> findRoles() {
+	public List<RoleVO> findRoles(Long userId) {
 		List<Role> roleLst = roleRepository.findAll();
+		List<Long> roleIdLs = getRoleIds(userId);
 		List<RoleVO> roleVoLst = new ArrayList<>();
 		roleLst.forEach(role -> {
 			RoleVO roleVO = new RoleVO();
 			BeanUtils.copyProperties(role, roleVO);
+			if (roleIdLs.contains(role.getRoleId())) {
+				roleVO.setAssigned(true);
+			} else {
+				roleVO.setAssigned(false);
+			}
+
 			roleVoLst.add(roleVO);
 		});
 		return roleVoLst;
+	}
+
+	@Override
+	public String authorize(Long userId, String roleIds) {
+		List<String> roldIds = Arrays.asList(roleIds.split("\\s*,\\s*"));
+		userRoleRepository.deleteRoles(userId);
+		roldIds.forEach(val -> {
+			UserRole userrole = new UserRole();
+			userrole.setUserId(userId);
+			userrole.setRoleId(new Long(val));
+			userRoleRepository.save(userrole);
+		});
+		return null;
+	}
+
+	@Override
+	public int changePassword(Long userId, String password) {
+		return  userRepository.changePassword(userId, password);
 	}
 
 }

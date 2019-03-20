@@ -2,8 +2,8 @@ package com.atos.feedback.vo;
 
 public class RoleVO {
 	private Long roleId;
-
 	private String role;
+	private boolean assigned;
 
 	public Long getRoleId() {
 		return roleId;
@@ -19,5 +19,13 @@ public class RoleVO {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public boolean isAssigned() {
+		return assigned;
+	}
+
+	public void setAssigned(boolean assigned) {
+		this.assigned = assigned;
 	}
 }

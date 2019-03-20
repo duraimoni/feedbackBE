@@ -1,5 +1,7 @@
 package com.atos.feedback.vo;
 
+import java.util.List;
+
 public class UserVO {
 
 	private Long userId;
@@ -11,7 +13,9 @@ public class UserVO {
 	private String userName;
 	private String email;
 	private int status;
-	//private List
+	private List<String> roles;
+	private String sessionId;
+	// private List
 
 	public int getStatus() {
 		return status;
@@ -83,6 +87,24 @@ public class UserVO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	 
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 }
