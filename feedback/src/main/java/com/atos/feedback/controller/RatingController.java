@@ -24,7 +24,7 @@ public class RatingController {
 
 	@GetMapping("all")
 	public List<ProductVO> findAll(HttpSession session) {
-		return productService.findAll();
+		return productService.findAll(-1l);
 	}
 	
 	@PostMapping("add")

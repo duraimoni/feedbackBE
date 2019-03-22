@@ -6,11 +6,15 @@ public class ProductVO {
 	private String productDescrption;
 	private String productName;
 	private int status;
-	private String productLeader;
 	private DomainVO domainVo;
 	private ProductRateVO productRateVO;
 	private Long domainId;
+	
+	private String productLeader;
 	private Long productLeaderId;
+	
+	private String productManager;
+	private Long productManagerId;
 	 
 	
 	public Long getProductLeaderId() {
@@ -78,6 +82,18 @@ public class ProductVO {
 	}
 	public void setProductRateVO(ProductRateVO productRateVO) {
 		this.productRateVO = productRateVO;
+	}
+	public String getProductManager() {
+		return productManager;
+	}
+	public void setProductManager(String productManager) {
+		this.productManager = productManager;
+	}
+	public Long getProductManagerId() {
+		return productManagerId;
+	}
+	public void setProductManagerId(Long productManagerId) {
+		this.productManagerId = productManagerId;
 	}
 
 	 

@@ -79,8 +79,11 @@ public class User implements Serializable {
 	private AppUser appUser;
 
 	// bi-directional many-to-one association to Product
-	@OneToMany(mappedBy = "user")
-	private List<Product> products;
+	@OneToMany(mappedBy = "user3")
+	private List<Product> products3;
+	
+	@OneToMany(mappedBy = "user4")
+	private List<Product> products4;
 
 	// bi-directional many-to-many association to Role
 	@ManyToMany
@@ -177,25 +180,42 @@ public class User implements Serializable {
 		this.appUser = appUser;
 	}
 
-	public List<Product> getProducts() {
-		return this.products;
+	public List<Product> getProducts3() {
+		return products3;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setProducts3(List<Product> products3) {
+		this.products3 = products3;
 	}
 
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setUser(this);
+	public List<Product> getProducts4() {
+		return products4;
+	}
 
+	public void setProducts4(List<Product> products4) {
+		this.products4 = products4;
+	}
+
+	public Product addProduct3(Product product) {
+		getProducts3().add(product);
+		product.setUser3(this);
 		return product;
 	}
 
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setUser(null);
+	public Product removeProduct3(Product product) {
+		getProducts3().remove(product);
+		product.setUser3(null);
+		return product;
+	}
+	public Product addProduct4(Product product) {
+		getProducts4().add(product);
+		product.setUser4(this);
+		return product;
+	}
 
+	public Product removeProduct4(Product product) {
+		getProducts4().remove(product);
+		product.setUser4(null);
 		return product;
 	}
 

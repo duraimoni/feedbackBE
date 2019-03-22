@@ -58,8 +58,11 @@ public class Product implements Serializable {
 	// bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name = "product_owner")
-	private User user;
+	private User user3;
 
+	@ManyToOne
+	@JoinColumn(name="product_manager")
+	private User user4;
 	public Product() {
 	}
 
@@ -163,6 +166,22 @@ public class Product implements Serializable {
 		this.prodRatings = prodRatings;
 	}
 
+	public User getUser3() {
+		return user3;
+	}
+
+	public void setUser3(User user3) {
+		this.user3 = user3;
+	}
+
+	public User getUser4() {
+		return user4;
+	}
+
+	public void setUser4(User user4) {
+		this.user4 = user4;
+	}
+
 	public ProdRating addProdRating(ProdRating prodRating) {
 		getProdRatings().add(prodRating);
 		prodRating.setProduct(this);
@@ -183,14 +202,6 @@ public class Product implements Serializable {
 
 	public void setDomain(Domain domain) {
 		this.domain = domain;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

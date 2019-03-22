@@ -43,7 +43,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO saveUser(UserVO userVo) {
-
 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
 		User userRet = userRepository.save(user);
@@ -153,7 +152,32 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int changePassword(Long userId, String password) {
-		return  userRepository.changePassword(userId, password);
+		return userRepository.changePassword(userId, password);
+	}
+
+	@Override
+	public List<String> getCurrentUserRoles(Long userId) {
+		User user = userRepository.findById(userId).orElse(new User());
+		List<String> roles = new ArrayList<>();
+		user.getRoles().forEach(role -> {
+			roles.add(role.getRole());
+		});
+		return roles;
+	}
+
+	@Override
+	public boolean isAdmin(List<String> roleLst) {
+		if (roleLst.contains("APP_ADMIN") || roleLst.contains("RENAULT_ADMIN") || roleLst.contains("ATOS_ADMIN")) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean isProductLead(List<String> roleLst) {
+		if (roleLst.contains("PRODUCT_LEADER")) {
+			return true;
+		}
+		return false;
 	}
 
 }

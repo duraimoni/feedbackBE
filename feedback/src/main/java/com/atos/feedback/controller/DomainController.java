@@ -2,6 +2,8 @@ package com.atos.feedback.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +40,8 @@ public class DomainController {
 	}
 
 	@GetMapping("dropdown")
-	public List<DomainVO> getDropdownVal() {
+	public List<DomainVO> getDropdownVal(HttpSession session) {
+		System.out.println("session in login Value:>" + session.getId());
 		return domainService.findAll();
 	}
 

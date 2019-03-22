@@ -2,8 +2,6 @@ package com.atos.feedback.service;
 
 import java.util.List;
 
-import org.springframework.data.repository.query.Param;
-
 import com.atos.feedback.vo.RoleVO;
 import com.atos.feedback.vo.UserVO;
 
@@ -23,4 +21,10 @@ public interface UserService {
 	String authorize(Long userId, String roleIds);
 
 	int changePassword(Long userId, String password);
+
+	List<String> getCurrentUserRoles(Long userId);
+
+	boolean isAdmin(List<String> roleLst);
+
+	boolean isProductLead(List<String> roleLst);
 }

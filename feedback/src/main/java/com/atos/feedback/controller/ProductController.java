@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.feedback.service.ProductService;
@@ -23,14 +24,15 @@ public class ProductController {
 	@Autowired
 	ProductService productService;
 
-	@GetMapping("dropdown/{domainId}")
-	public List<ProductVO> findByDomainId(@PathVariable final Long domainId) {
-		return productService.getProductsBuDomain(domainId);
+	@GetMapping("dropdown/{domainId}/{userId}")
+	public List<ProductVO> findByDomainId(@PathVariable final Long domainId, @PathVariable final Long userId) {
+		return productService.getProductsBuDomain(domainId, userId);
 	}
 
-	@GetMapping("all")
-	public List<ProductVO> findAll(HttpSession session) {
-		return productService.findAll();
+	@GetMapping("all/{userId}")
+	public List<ProductVO> findAll(HttpSession session, @PathVariable final Long userId) {
+		System.out.println("session in login Value:>" + session.getId() + "--" + session.getAttribute("username"));
+		return productService.findAll(userId);
 	}
 
 	@GetMapping("{productId}")

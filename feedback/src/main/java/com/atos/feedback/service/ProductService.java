@@ -13,13 +13,13 @@ public interface ProductService {
 	 * 
 	 * String deleteProduct(Product product);
 	 */
-	List<ProductVO> getProductsBuDomain(Long domainId);
+	List<ProductVO> getProductsBuDomain(Long domainId, Long userId);
 
 	ProductVO findById(Long productId);
 
-	List<ProductVO> findAll();
+	List<ProductVO> findAll(Long userId);
 
 	void delete(Long productId);
-	
+
 	void rateProduct(ProductRateVO productRateVO);
 }
