@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 	public UserVO saveUser(UserVO userVo) {
 		User user = new User();
 		BeanUtils.copyProperties(userVo, user);
+		user.setUserName(user.getEmail());
 		User userRet = userRepository.save(user);
 		AppUser appUser = null;
 		if (userRet.getAppUser() == null) {
@@ -70,6 +71,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO findUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
+		
 		UserVO userVo = new UserVO();
 		BeanUtils.copyProperties(user, userVo);
 		if (user.getAppUser() != null) {

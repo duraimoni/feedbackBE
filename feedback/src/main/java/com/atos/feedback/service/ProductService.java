@@ -1,5 +1,7 @@
 package com.atos.feedback.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import com.atos.feedback.vo.ProductRateVO;
@@ -22,4 +24,6 @@ public interface ProductService {
 	void delete(Long productId);
 
 	void rateProduct(ProductRateVO productRateVO);
+	
+	ByteArrayInputStream exportProduct() throws IOException;
 }

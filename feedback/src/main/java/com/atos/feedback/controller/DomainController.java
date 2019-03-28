@@ -44,5 +44,10 @@ public class DomainController {
 		System.out.println("session in login Value:>" + session.getId());
 		return domainService.findAll();
 	}
+	@GetMapping("user/{userId}")
+	public String getDominUser(@PathVariable final Long userId) {
+		
+		return domainService.getDomainUser(userId);
+	}
 
 }

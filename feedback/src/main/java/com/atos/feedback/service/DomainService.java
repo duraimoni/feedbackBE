@@ -3,7 +3,6 @@ package com.atos.feedback.service;
 import java.util.List;
 
 import com.atos.feedback.vo.DomainVO;
-import com.atos.feedback.vo.UserVO;
 
 public interface DomainService {
 	DomainVO save(DomainVO domainVo);
@@ -13,6 +12,8 @@ public interface DomainService {
 	void delete(Long domainId);
 
 	List<DomainVO> findAll();
-	
+
 	List<DomainVO> dropDown();
+
+	String getDomainUser(Long userId);
 }

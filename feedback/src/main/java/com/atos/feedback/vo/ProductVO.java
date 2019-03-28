@@ -12,6 +12,7 @@ public class ProductVO {
 	
 	private String productLeader;
 	private Long productLeaderId;
+	private String productLeaderEmail;
 	
 	private String productManager;
 	private Long productManagerId;
@@ -95,6 +96,13 @@ public class ProductVO {
 	public void setProductManagerId(Long productManagerId) {
 		this.productManagerId = productManagerId;
 	}
+	public String getProductLeaderEmail() {
+		return productLeaderEmail;
+	}
+	public void setProductLeaderEmail(String productLeaderEmail) {
+		this.productLeaderEmail = productLeaderEmail;
+	}
+	 
 
 	 
 }

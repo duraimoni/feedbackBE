@@ -1,5 +1,7 @@
 package com.atos.feedback.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +40,8 @@ public class ProductServiceImpl implements ProductService {
 	ProductRatingRepository productRatingRepository;
 	@Autowired
 	RatingRepository ratingRepository;
+	@Autowired
+	ExcelExportUtil excelExportUtil;
 
 	@Autowired
 	UserService userService;
@@ -96,6 +100,7 @@ public class ProductServiceImpl implements ProductService {
 			BeanUtils.copyProperties(product.getDomain(), domainVo);
 			productVo.setDomainVo(domainVo);
 			productVo.setProductLeader(product.getUser3().getFirstName());
+			productVo.setProductLeaderEmail(product.getUser3().getEmail());
 			productVo.setProductManager(product.getUser4().getFirstName());
 			if (product.getProdRatings() != null && !product.getProdRatings().isEmpty()) {
 				productRateVO.setRating(product.getProdRatings().get(0).getRating().getRatingNo());
@@ -144,5 +149,11 @@ public class ProductServiceImpl implements ProductService {
 		Rating rating = ratingRepository.findById(new Long(productRateVO.getRating())).orElse(new Rating());
 		prodRating.setRating(rating);
 		productRatingRepository.save(prodRating);
+	}
+
+	@Override
+	public ByteArrayInputStream exportProduct() throws IOException {
+		List<Product> productLst = productRepository.findAll();
+		return excelExportUtil.exportProduct(productLst);
 	}
 }

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Entity
 @NamedQuery(name="Domain.findAll", query="SELECT d FROM Domain d")
 @NamedQuery(name="Domain.findAllByStatus", query="SELECT d FROM Domain d WHERE d.status=1")
+@NamedQuery(name="Domain.findByUser", query="SELECT d FROM Domain d WHERE d.user.userId= :userId")
 @Transactional
 @NamedQuery(name="Domain.updateStatus", query="UPDATE Domain d SET d.status=-1 WHERE d.domainId= :domainId")
 public class Domain implements Serializable {

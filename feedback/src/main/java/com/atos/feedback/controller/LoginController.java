@@ -18,9 +18,10 @@ import com.atos.feedback.vo.UserVO;
 
 @RestController
 @RequestMapping("login")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://192.168.99.1:4200")
 public class LoginController {
 
+	
 	/*
 	 * @GetMapping(value = "authenticate", produces =
 	 * MediaType.APPLICATION_JSON_VALUE) public String authenticate() { return
@@ -32,7 +33,6 @@ public class LoginController {
 		session.setAttribute("username", user.getName());
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
-		System.out.println("session in login Value:>" + session.getId());
 		UserVO userVo = new UserVO();
 		userVo.setSessionId(session.getId());
 		BeanUtils.copyProperties(userDetails, userVo);

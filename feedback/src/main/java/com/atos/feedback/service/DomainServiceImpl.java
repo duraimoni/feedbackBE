@@ -2,6 +2,7 @@ package com.atos.feedback.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -72,10 +73,17 @@ public class DomainServiceImpl implements DomainService {
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
 			BeanUtils.copyProperties(domain, domainVO);
-			
+
 			domainVoLst.add(domainVO);
 		});
 		return domainVoLst;
+	}
+
+	@Override
+	public String getDomainUser(Long userId) {
+		List<Domain> domainLst = domainRepository.findByUser(userId);
+		String domains = domainLst.stream().map(e -> e.getDomainName()).collect(Collectors.joining(","));
+		return domains;
 	}
 
 }
