@@ -28,12 +28,13 @@ public class ExcelExportUtil {
 		try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
 
 			Sheet sheet = workbook.createSheet("products");
+			AtomicInteger counter = new AtomicInteger(0);
 			Font headerFont = workbook.createFont();
 			headerFont.setBold(true);
 			headerFont.setColor(IndexedColors.BLUE.getIndex());
 			CellStyle headerCellStyle = workbook.createCellStyle();
 			headerCellStyle.setFont(headerFont);
-			Row headerRow = sheet.createRow(0);
+			Row headerRow = sheet.createRow(counter.getAndIncrement());
 			int prodLength = PRODUCT_COLUMNS.length;
 			// Header
 			for (int col = 0; col < prodLength; col++) {
@@ -41,7 +42,6 @@ public class ExcelExportUtil {
 				cell.setCellValue(PRODUCT_COLUMNS[col]);
 				cell.setCellStyle(headerCellStyle);
 			}
-			AtomicInteger counter = new AtomicInteger(1);
 			productLst.stream().forEach(product -> {
 				product.getProdRatings().stream().forEach(rating -> {
 					Row row = sheet.createRow(counter.getAndIncrement());
@@ -50,7 +50,8 @@ public class ExcelExportUtil {
 					row.createCell(2).setCellValue(product.getDomain().getDomainName());
 					row.createCell(3).setCellValue(product.getDomain().getDomainDesc());
 					row.createCell(4).setCellValue(rating.getMonth());
-					row.createCell(5).setCellValue(rating.getRating() + "");
+					row.createCell(5).setCellValue(
+							(rating.getRating() != null ? rating.getRating().getRatingNo() + "" : " Not rated"));
 					row.createCell(6).setCellValue(rating.getComment());
 				});
 			});

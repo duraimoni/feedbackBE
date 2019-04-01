@@ -25,5 +25,5 @@ public interface ProductService {
 
 	void rateProduct(ProductRateVO productRateVO);
 	
-	ByteArrayInputStream exportProduct() throws IOException;
+	ByteArrayInputStream exportProduct(Long userId) throws IOException;
 }

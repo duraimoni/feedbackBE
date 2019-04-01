@@ -3,6 +3,8 @@ package com.atos.feedback.service;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	UserService userService;
+ 
 
 	@Override
 	public String addProduct(ProductVO productVo) {
@@ -60,7 +63,22 @@ public class ProductServiceImpl implements ProductService {
 		product.setUser3(user3);
 		product.setUser4(user4);
 		product.setUpdby(1);
-		productRepository.save(product);
+		product = productRepository.save(product);
+		
+		//add prodRating as well
+		Date today = new Date(); 
+		Calendar cal = Calendar.getInstance();
+
+		ProdRating prodRating = new ProdRating();
+		prodRating.setMonth(cal.MONTH);
+		prodRating.setYear(cal.YEAR);
+		prodRating.setComment("");
+		prodRating.setStatus(1);
+		prodRating.setProduct(product);
+		prodRating.setRating(null);
+		prodRating.setUpdby(1);
+		productRatingRepository.save(prodRating);
+		
 		return null;
 	}
 
@@ -79,10 +97,9 @@ public class ProductServiceImpl implements ProductService {
 		List<String> roleLst = userService.getCurrentUserRoles(userId);
 		List<Product> productLstN = new ArrayList<>();
 		if (!this.userService.isAdmin(roleLst)) {
-			productLstN = productLst.stream().filter(product -> product.getUser3().getUserId() == userId)
+			productLstN = productLst.stream().filter(
+					product -> (product.getUser3().getUserId() == userId || product.getUser4().getUserId() == userId))
 					.collect(Collectors.toList());
-			productLstN.addAll(productLst.stream().filter(product -> product.getUser4().getUserId() == userId)
-					.collect(Collectors.toList()));
 			return productLstN;
 		}
 
@@ -103,7 +120,11 @@ public class ProductServiceImpl implements ProductService {
 			productVo.setProductLeaderEmail(product.getUser3().getEmail());
 			productVo.setProductManager(product.getUser4().getFirstName());
 			if (product.getProdRatings() != null && !product.getProdRatings().isEmpty()) {
-				productRateVO.setRating(product.getProdRatings().get(0).getRating().getRatingNo());
+				if(product.getProdRatings().get(0).getRating() !=null) {
+					productRateVO.setRating(product.getProdRatings().get(0).getRating().getRatingNo() );
+				} else {
+					productRateVO.setRating(0);
+				}
 				productRateVO.setMonth(product.getProdRatings().get(0).getMonth());
 				productRateVO.setYear(product.getProdRatings().get(0).getYear());
 				productRateVO.setComment(product.getProdRatings().get(0).getComment());
@@ -151,9 +172,39 @@ public class ProductServiceImpl implements ProductService {
 		productRatingRepository.save(prodRating);
 	}
 
+	private String getExportCriteria(Long userId) {
+		User user = userRepository.findById(userId).orElse(new User());
+		String retVal = "";
+		boolean isAdmin = user.getRoles().stream().anyMatch(role -> (role.getRole().equals("APP_ADMIN")
+				|| role.getRole().equals("RENAULT_ADMIN") || role.getRole().equals("ATOS_ADMIN")));
+		if (isAdmin) {
+			retVal = "ADMIN";
+		} else if (user.getRoles().stream()
+				.anyMatch(role -> (role.getRole().equals("DOMAIN_LEAD") || role.getRole().equals("DOMAIN_MANAGER")))) {
+			retVal = "DOMAIN";
+		} else if (user.getRoles().stream()
+				.anyMatch(role -> (role.getRole().equals("PROD_LEADER") || role.getRole().equals("PROD_MANAGER")))) {
+			retVal = "PRODUCT";
+		}
+		return retVal;
+	}
+
 	@Override
-	public ByteArrayInputStream exportProduct() throws IOException {
+	public ByteArrayInputStream exportProduct(Long userId) throws IOException {
 		List<Product> productLst = productRepository.findAll();
-		return excelExportUtil.exportProduct(productLst);
+		String criteria = this.getExportCriteria(userId);
+		List<Product> productLstN = new ArrayList<>();
+		if (criteria.equals("DOMAIN")) {
+			productLstN = productLst.stream().filter(prod -> (prod.getDomain().getUser().getUserId() == userId))
+					.collect(Collectors.toList());
+		} else if (criteria.equals("PRODUCT")) {
+			productLstN = productLst.stream()
+					.filter(prod -> (prod.getUser3().getUserId() == userId || prod.getUser4().getUserId() == userId))
+					.collect(Collectors.toList());
+		} else {
+			productLstN = productLst;
+		}
+
+		return excelExportUtil.exportProduct(productLstN);
 	}
 }

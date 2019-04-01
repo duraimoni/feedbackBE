@@ -63,9 +63,9 @@ public class ProductController {
 		return "OK";
 	}
 
-	@GetMapping("export")
-	public ResponseEntity<InputStreamResource> export(HttpServletResponse response) throws IOException {
-		ByteArrayInputStream in = productService.exportProduct();
+	@GetMapping("export/{userId}")
+	public ResponseEntity<InputStreamResource> export(@PathVariable final Long userId, HttpServletResponse response) throws IOException {
+		ByteArrayInputStream in = productService.exportProduct(userId);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
 		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
