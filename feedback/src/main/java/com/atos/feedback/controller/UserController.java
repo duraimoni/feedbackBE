@@ -60,6 +60,11 @@ public class UserController {
 		return userService.findAll();
 	}
 
+	@GetMapping("all/{user}")
+	public List<UserVO> findAllUser(@PathVariable final String user) {
+		return userService.findAllUser(user);
+	}
+
 	@GetMapping("roles/{userId}")
 	public List<RoleVO> findRoles(@PathVariable final Long userId) {
 		return userService.findRoles(userId);

@@ -27,4 +27,6 @@ public interface UserService {
 	boolean isAdmin(List<String> roleLst);
 
 	boolean isProductLead(List<String> roleLst);
+
+	List<UserVO> findAllUser(final String userVal);
 }

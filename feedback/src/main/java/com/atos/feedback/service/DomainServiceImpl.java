@@ -28,11 +28,13 @@ public class DomainServiceImpl implements DomainService {
 	@Override
 	public DomainVO save(DomainVO domainVo) {
 		Domain domain = new Domain();
-		User user = userRepository.findById(new Long(domainVo.getDomainLeader())).orElse(new User());
+		User user1 = userRepository.findById(new Long(domainVo.getDomainLeader())).orElse(new User());
+		User user2 = userRepository.findById(new Long(domainVo.getDomainManager())).orElse(new User());
 		BeanUtils.copyProperties(domainVo, domain);
 		domain.setUpdby(1);
 		domain.setStatus(1);
-		domain.setUser(user);
+		domain.setUser1(user1);
+		domain.setUser2(user2);
 		domainRepository.save(domain);
 		return null;
 	}
@@ -42,8 +44,10 @@ public class DomainServiceImpl implements DomainService {
 		Domain domain = domainRepository.findById(domainId).orElse(new Domain());
 		DomainVO domainVo = new DomainVO();
 		BeanUtils.copyProperties(domain, domainVo);
-		domainVo.setDomainLeader(domain.getUser().getFirstName());
-		domainVo.setDomainLeaderId(domain.getUser().getUserId());
+		domainVo.setDomainLeader(domain.getUser1().getFirstName());
+		domainVo.setDomainLeaderId(domain.getUser1().getUserId());
+		domainVo.setDomainManager(domain.getUser2().getFirstName());
+		domainVo.setDomainManagerId(domain.getUser2().getUserId());
 		return domainVo;
 	}
 
@@ -59,8 +63,10 @@ public class DomainServiceImpl implements DomainService {
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
 			BeanUtils.copyProperties(domain, domainVO);
-			domainVO.setDomainLeader(domain.getUser().getFirstName());
-			domainVO.setDomainLeaderId(domain.getUser().getUserId());
+			domainVO.setDomainLeader(domain.getUser1().getFirstName());
+			domainVO.setDomainLeaderId(domain.getUser1().getUserId());
+			domainVO.setDomainManager(domain.getUser2().getFirstName());
+			domainVO.setDomainManagerId(domain.getUser2().getUserId());
 			domainVoLst.add(domainVO);
 		});
 		return domainVoLst;
@@ -73,7 +79,6 @@ public class DomainServiceImpl implements DomainService {
 		domainLst.forEach(domain -> {
 			DomainVO domainVO = new DomainVO();
 			BeanUtils.copyProperties(domain, domainVO);
-
 			domainVoLst.add(domainVO);
 		});
 		return domainVoLst;

@@ -8,8 +8,17 @@ public class ProductRateVO {
 	private int rating;
 	private int month;
 	private int year;
+	private String ratingDesc;
 	
 	
+	public String getRatingDesc() {
+		return ratingDesc;
+	}
+
+	public void setRatingDesc(String ratingDesc) {
+		this.ratingDesc = ratingDesc;
+	}
+
 	public Long getProductId() {
 		return productId;
 	}

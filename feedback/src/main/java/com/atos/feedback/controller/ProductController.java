@@ -37,7 +37,6 @@ public class ProductController {
 
 	@GetMapping("all/{userId}")
 	public List<ProductVO> findAll(HttpSession session, @PathVariable final Long userId) {
-		System.out.println("session in login Value:>" + session.getId() + "--" + session.getAttribute("username"));
 		return productService.findAll(userId);
 	}
 

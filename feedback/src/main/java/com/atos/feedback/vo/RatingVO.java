@@ -6,10 +6,10 @@ public class RatingVO {
 	private String productDescrption;
 	private String productName;
 	private int status;
-//	private Integer domain;
 	private String productLeader;
 	private DomainVO domainVo;
 	private ProductRateVO productRateVO;
+		
 	
 	public Long getProductId() {
 		return productId;
@@ -35,18 +35,7 @@ public class RatingVO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-/*	public Integer getDomain() {
-		return domain;
-	}
-	public void setDomain(Integer domain) {
-		this.domain = domain;
-	}*/
-/*	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}*/
+ 
 	public DomainVO getDomainVo() {
 		return domainVo;
 	}

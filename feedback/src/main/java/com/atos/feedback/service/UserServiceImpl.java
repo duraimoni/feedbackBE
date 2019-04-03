@@ -3,6 +3,7 @@ package com.atos.feedback.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO findUser(Long userId) {
 		User user = userRepository.findById(userId).orElse(new User());
-		
+
 		UserVO userVo = new UserVO();
 		BeanUtils.copyProperties(user, userVo);
 		if (user.getAppUser() != null) {
@@ -91,6 +92,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserVO> findAll() {
 		List<User> userLst = userRepository.findAllByStatus();
+		List<UserVO> userVoLst = buildUser(userLst);
+		return userVoLst;
+	}
+	
+	@Override
+	public List<UserVO> findAllUser(final String userVal) {
+		List<User> userLst = userRepository.findAllByStatus();
+		List<User> filterLst = new ArrayList<>();
+		if (userVal.equals("atos")) {
+			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@atos.net")).collect(Collectors.toList());
+		} else if (userVal.equals("renault")){
+			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@renault.com")).collect(Collectors.toList());
+		} else {
+			filterLst = userLst;
+		}
+		List<UserVO> userVoLst = buildUser(filterLst);
+		return userVoLst;
+	}
+
+	private List<UserVO> buildUser(List<User> userLst) {
 		List<UserVO> userVoLst = new ArrayList<>();
 		userLst.forEach(user -> {
 			UserVO userVO = new UserVO();
@@ -174,6 +195,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
+
 	@Override
 	public boolean isProductLead(List<String> roleLst) {
 		if (roleLst.contains("PRODUCT_LEADER")) {

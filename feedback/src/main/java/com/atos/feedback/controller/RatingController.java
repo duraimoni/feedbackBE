@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.feedback.service.ProductService;
+import com.atos.feedback.service.RatingService;
 import com.atos.feedback.vo.ProductRateVO;
 import com.atos.feedback.vo.ProductVO;
+import com.atos.feedback.vo.RatingAllVO;
 
 @RestController
 @RequestMapping("rating")
@@ -21,6 +23,8 @@ public class RatingController {
 
 	@Autowired
 	ProductService productService;
+	@Autowired
+	RatingService ratingService;
 
 	@GetMapping("all")
 	public List<ProductVO> findAll(HttpSession session) {
@@ -31,6 +35,11 @@ public class RatingController {
 	public String add(@RequestBody ProductRateVO productRateVO) {
 		productService.rateProduct(productRateVO);
 		return "OK";
+	}
+	
+	@GetMapping("allrating")
+	public List<RatingAllVO> findRatings(HttpSession session) {
+		return ratingService.findAllRatings();
 	}
 
 }

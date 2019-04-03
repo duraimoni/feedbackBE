@@ -9,4 +9,6 @@ import com.atos.feedback.model.MailContent;
 public interface MailContentRepository extends CrudRepository<MailContent, Long> {
 	@Override
 	List<MailContent> findAll();
+	
+	List<MailContent>  findAllByOrderByContentIdDesc();
 }

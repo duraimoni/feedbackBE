@@ -18,7 +18,7 @@ public class ProdRating implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="prod_rating_id")
-	private int prodRatingId;
+	private Long prodRatingId;
 
 	private String comment;
 
@@ -45,11 +45,11 @@ public class ProdRating implements Serializable {
 	public ProdRating() {
 	}
 
-	public int getProdRatingId() {
+	public Long getProdRatingId() {
 		return this.prodRatingId;
 	}
 
-	public void setProdRatingId(int prodRatingId) {
+	public void setProdRatingId(Long prodRatingId) {
 		this.prodRatingId = prodRatingId;
 	}
 

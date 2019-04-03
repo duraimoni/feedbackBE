@@ -3,6 +3,8 @@ package com.atos.feedback.vo;
 public class RoleVO {
 	private Long roleId;
 	private String role;
+	private String roleDesc;
+
 	private boolean assigned;
 
 	public Long getRoleId() {
@@ -27,5 +29,13 @@ public class RoleVO {
 
 	public void setAssigned(boolean assigned) {
 		this.assigned = assigned;
+	}
+
+	public String getRoleDesc() {
+		return roleDesc;
+	}
+
+	public void setRoleDesc(String roleDesc) {
+		this.roleDesc = roleDesc;
 	}
 }

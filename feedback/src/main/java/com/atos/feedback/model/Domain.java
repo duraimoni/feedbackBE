@@ -14,7 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -25,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Entity
 @NamedQuery(name="Domain.findAll", query="SELECT d FROM Domain d")
 @NamedQuery(name="Domain.findAllByStatus", query="SELECT d FROM Domain d WHERE d.status=1")
-@NamedQuery(name="Domain.findByUser", query="SELECT d FROM Domain d WHERE d.user.userId= :userId")
+@NamedQuery(name="Domain.findByUser", query="SELECT d FROM Domain d WHERE d.user1.userId= :userId")
 @Transactional
 @NamedQuery(name="Domain.updateStatus", query="UPDATE Domain d SET d.status=-1 WHERE d.domainId= :domainId")
 public class Domain implements Serializable {
@@ -39,15 +38,12 @@ public class Domain implements Serializable {
 	@Column(name="domain_desc")
 	private String domainDesc;
 
-/*	@Column(name="domain_leader")
-	private int domainLeader;
-*/
 	@Column(name="domain_name")
 	private String domainName;
 
 	private int status;
 
-	private Integer updby;
+	private int updby;
 
 	private Timestamp updtime;
 
@@ -55,14 +51,20 @@ public class Domain implements Serializable {
 	@OneToMany(mappedBy="domain")
 	private List<AppUser> appUsers;
 
+	//bi-directional many-to-one association to User
+	@OneToOne
+	@JoinColumn(name="domain_leader")
+	private User user1;
+
+	//bi-directional many-to-one association to User
+	@OneToOne
+	@JoinColumn(name="domain_manager")
+	private User user2;
+
 	//bi-directional many-to-one association to Product
 	@OneToMany(mappedBy="domain")
 	private List<Product> products;
 
-	@OneToOne
-	@JoinColumn(name="domain_leader")
-	private User user; 
-	
 	public Domain() {
 	}
 
@@ -81,15 +83,7 @@ public class Domain implements Serializable {
 	public void setDomainDesc(String domainDesc) {
 		this.domainDesc = domainDesc;
 	}
-/*
-	public int getDomainLeader() {
-		return this.domainLeader;
-	}
 
-	public void setDomainLeader(int domainLeader) {
-		this.domainLeader = domainLeader;
-	}
-*/
 	public String getDomainName() {
 		return this.domainName;
 	}
@@ -106,11 +100,11 @@ public class Domain implements Serializable {
 		this.status = status;
 	}
 
-	public Integer getUpdby() {
+	public int getUpdby() {
 		return this.updby;
 	}
 
-	public void setUpdby(Integer updby) {
+	public void setUpdby(int updby) {
 		this.updby = updby;
 	}
 
@@ -144,6 +138,22 @@ public class Domain implements Serializable {
 		return appUser;
 	}
 
+	public User getUser1() {
+		return this.user1;
+	}
+
+	public void setUser1(User user1) {
+		this.user1 = user1;
+	}
+
+	public User getUser2() {
+		return this.user2;
+	}
+
+	public void setUser2(User user2) {
+		this.user2 = user2;
+	}
+
 	public List<Product> getProducts() {
 		return this.products;
 	}
@@ -164,14 +174,6 @@ public class Domain implements Serializable {
 		product.setDomain(null);
 
 		return product;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

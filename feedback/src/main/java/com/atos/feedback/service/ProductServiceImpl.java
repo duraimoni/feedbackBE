@@ -120,14 +120,17 @@ public class ProductServiceImpl implements ProductService {
 			productVo.setProductLeaderEmail(product.getUser3().getEmail());
 			productVo.setProductManager(product.getUser4().getFirstName());
 			if (product.getProdRatings() != null && !product.getProdRatings().isEmpty()) {
-				if(product.getProdRatings().get(0).getRating() !=null) {
-					productRateVO.setRating(product.getProdRatings().get(0).getRating().getRatingNo() );
+				if(product.getProdRatings().get(0).getRating() != null) {
+					productRateVO.setRatingDesc(product.getProdRatings().get(0).getRating().getRatingDesc() );
+					productRateVO.setRating(product.getProdRatings().get(0).getRating().getRatingId().intValue());
 				} else {
 					productRateVO.setRating(0);
+					productRateVO.setRatingDesc("Not rated");
 				}
 				productRateVO.setMonth(product.getProdRatings().get(0).getMonth());
 				productRateVO.setYear(product.getProdRatings().get(0).getYear());
 				productRateVO.setComment(product.getProdRatings().get(0).getComment());
+				productRateVO.setProductRateId(product.getProdRatings().get(0).getProdRatingId());
 			}
 			productVo.setProductRateVO(productRateVO);
 			productVOLst.add(productVo);
@@ -169,6 +172,7 @@ public class ProductServiceImpl implements ProductService {
 		prodRating.setProduct(product);
 		Rating rating = ratingRepository.findById(new Long(productRateVO.getRating())).orElse(new Rating());
 		prodRating.setRating(rating);
+		prodRating.setProdRatingId(productRateVO.getProductRateId());
 		productRatingRepository.save(prodRating);
 	}
 
@@ -195,7 +199,7 @@ public class ProductServiceImpl implements ProductService {
 		String criteria = this.getExportCriteria(userId);
 		List<Product> productLstN = new ArrayList<>();
 		if (criteria.equals("DOMAIN")) {
-			productLstN = productLst.stream().filter(prod -> (prod.getDomain().getUser().getUserId() == userId))
+			productLstN = productLst.stream().filter(prod -> (prod.getDomain().getUser1().getUserId() == userId))
 					.collect(Collectors.toList());
 		} else if (criteria.equals("PRODUCT")) {
 			productLstN = productLst.stream()

@@ -27,7 +27,7 @@ public class MailContentServiceImpl implements MailContentService {
 
 	@Override
 	public String find() {
-		List<MailContent> content = mailContentRepository.findAll();
+		List<MailContent> content = mailContentRepository.findAllByOrderByContentIdDesc();
 		MailContent mailContent = content.stream().findFirst().orElse(new MailContent());
 		return mailContent.getContent();
 	}

@@ -7,6 +7,10 @@ public class DomainVO {
 	private String domainDesc;
 	private String domainLeader;
 	private Long domainLeaderId;
+ 
+	
+	private String domainManager;
+	private Long domainManagerId;
 
 	public Long getDomainLeaderId() {
 		return domainLeaderId;
@@ -46,6 +50,22 @@ public class DomainVO {
 
 	public void setDomainLeader(String domainLeader) {
 		this.domainLeader = domainLeader;
+	}
+
+	public String getDomainManager() {
+		return domainManager;
+	}
+
+	public void setDomainManager(String domainManager) {
+		this.domainManager = domainManager;
+	}
+
+	public Long getDomainManagerId() {
+		return domainManagerId;
+	}
+
+	public void setDomainManagerId(Long domainManagerId) {
+		this.domainManagerId = domainManagerId;
 	}
 
 }

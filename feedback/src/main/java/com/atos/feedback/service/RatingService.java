@@ -2,12 +2,10 @@ package com.atos.feedback.service;
 
 import java.util.List;
 
-import com.atos.feedback.model.Product;
-import com.atos.feedback.vo.ProductVO;
+import com.atos.feedback.vo.RatingAllVO;
 
 public interface RatingService {
-	 
 
-	List<ProductVO> findAll();
+	List<RatingAllVO> findAllRatings();
  
 }
