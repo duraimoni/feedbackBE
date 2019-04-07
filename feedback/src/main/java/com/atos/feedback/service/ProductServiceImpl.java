@@ -48,6 +48,11 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	UserService userService;
  
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	MailContentService mailContentService;
 
 	@Override
 	public String addProduct(ProductVO productVo) {
@@ -210,5 +215,14 @@ public class ProductServiceImpl implements ProductService {
 		}
 
 		return excelExportUtil.exportProduct(productLstN);
+	}
+
+	@Override
+	public String reminder(Long productId) {
+		String mailId = "";
+		String subject = "Reminder";
+		String content = mailContentService.find();
+		mailService.sentMail(mailId, subject, content);
+		return "OK";
 	}
 }

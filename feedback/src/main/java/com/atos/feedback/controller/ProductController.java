@@ -69,5 +69,11 @@ public class ProductController {
 		headers.add("Content-Disposition", "attachment; filename=customers.xlsx");
 		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(in));
 	}
+	
+	@DeleteMapping("reminder/{productId}")
+	public String reminder(@PathVariable final Long productId) {
+		productService.delete(productId);
+		return "OK";
+	}
 
 }

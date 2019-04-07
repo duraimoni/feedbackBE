@@ -7,12 +7,15 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atos.feedback.service.MailService;
 import com.atos.feedback.vo.CustomUserDetails;
 import com.atos.feedback.vo.UserVO;
 
@@ -42,5 +45,10 @@ public class LoginController {
 		});
 		userVo.setRoles(userRoles);
 		return userVo;
+	}
+	@GetMapping("forgotpassword/{mailId}")
+	public String forgotPassword(@PathVariable String mailId) {
+	 
+		return null;
 	}
 }

@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
+	@Autowired
+	MailService mailService;
+	
+	@Autowired
+	MailContentService mailContentService;
+
 	@Override
 	public UserVO saveUser(UserVO userVo) {
 		User user = new User();
@@ -95,15 +101,17 @@ public class UserServiceImpl implements UserService {
 		List<UserVO> userVoLst = buildUser(userLst);
 		return userVoLst;
 	}
-	
+
 	@Override
 	public List<UserVO> findAllUser(final String userVal) {
 		List<User> userLst = userRepository.findAllByStatus();
 		List<User> filterLst = new ArrayList<>();
 		if (userVal.equals("atos")) {
-			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@atos.net")).collect(Collectors.toList());
-		} else if (userVal.equals("renault")){
-			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@renault.com")).collect(Collectors.toList());
+			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@atos.net"))
+					.collect(Collectors.toList());
+		} else if (userVal.equals("renault")) {
+			filterLst = userLst.stream().filter(user -> user.getEmail().endsWith("@renault.com"))
+					.collect(Collectors.toList());
 		} else {
 			filterLst = userLst;
 		}
@@ -202,6 +210,18 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String forgotPassword(String mailId) {
+		boolean isValidMail = false;
+		if (!isValidMail) {
+			return "Not Registered";
+		}
+		String subject = "Forgot Password";
+		String content = "your new password is ! xyz";
+		mailService.sentMail(mailId, subject, content);
+		return "OK";
 	}
 
 }

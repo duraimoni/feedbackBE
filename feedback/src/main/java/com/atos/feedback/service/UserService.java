@@ -29,4 +29,6 @@ public interface UserService {
 	boolean isProductLead(List<String> roleLst);
 
 	List<UserVO> findAllUser(final String userVal);
+	
+	String forgotPassword(String mailId);
 }
