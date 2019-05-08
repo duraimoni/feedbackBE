@@ -11,6 +11,8 @@ import com.atos.feedback.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	Optional<User> findByUserName(String username);
+	
+	Optional<User> findByLogin(@Param("userId") Long userId);
 
 	@Override
 	List<User> findAll();

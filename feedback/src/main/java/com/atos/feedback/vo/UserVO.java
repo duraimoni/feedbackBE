@@ -15,6 +15,7 @@ public class UserVO {
 	private int status;
 	private List<String> roles;
 	private String sessionId;
+	private int changePassword;
 	// private List
 
 	public int getStatus() {
@@ -105,6 +106,14 @@ public class UserVO {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	public int getChangePassword() {
+		return changePassword;
+	}
+
+	public void setChangePassword(int changePassword) {
+		this.changePassword = changePassword;
 	}
 
 }

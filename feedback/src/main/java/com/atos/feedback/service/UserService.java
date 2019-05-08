@@ -31,4 +31,6 @@ public interface UserService {
 	List<UserVO> findAllUser(final String userVal);
 	
 	String forgotPassword(String mailId);
+	
+	int getLoggedInStatus(Long userId);
 }

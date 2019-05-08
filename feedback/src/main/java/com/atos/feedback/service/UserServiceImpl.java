@@ -224,4 +224,10 @@ public class UserServiceImpl implements UserService {
 		return "OK";
 	}
 
+	@Override
+	public int getLoggedInStatus(Long userId) {
+		User user = userRepository.findByLogin(userId).orElse(new User()); 
+		return user.getChangePassword();
+	}
+
 }

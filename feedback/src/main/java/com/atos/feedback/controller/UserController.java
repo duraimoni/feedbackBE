@@ -38,9 +38,9 @@ public class UserController {
 		return userService.saveUser(user);
 	}
 
-	@GetMapping("changepassword/{password}")
-	public int changePasword(@PathVariable final String password) {
-		return userService.changePassword(5l, password);
+	@GetMapping("changepassword/{userId}/{password}")
+	public int changePasword(@PathVariable final Long userId, @PathVariable final String password) {
+		return userService.changePassword(userId, password);
 	}
 
 	@GetMapping("approve/{userId}")
