@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	MailService mailService;
-	
+
 	@Autowired
 	MailContentService mailContentService;
 
@@ -214,19 +214,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String forgotPassword(String mailId) {
-		boolean isValidMail = false;
-		if (!isValidMail) {
-			return "Not Registered";
+		User user = userRepository.findByEmail(mailId);
+		if (null == user) {
+			return "NOK";
 		}
 		String subject = "Forgot Password";
 		String content = "your new password is ! xyz";
-		mailService.sentMail(mailId, subject, content);
+		//mailService.sentMail(mailId, subject, content);
 		return "OK";
 	}
 
 	@Override
 	public int getLoggedInStatus(Long userId) {
-		User user = userRepository.findByLogin(userId).orElse(new User()); 
+		User user = userRepository.findByLogin(userId).orElse(new User());
 		return user.getChangePassword();
 	}
 

@@ -52,15 +52,11 @@ public class LoginController {
 		userVo.setRoles(userRoles);
 		return userVo;
 	}
-	@GetMapping("forgotpassword/{mailId}")
-	public String forgotPassword(@PathVariable String mailId) {
-		System.out.println("mailId"+mailId);
-		return null;
-	}
 	@PostMapping("forgotpassword")
 	public String resetPassword(@RequestBody String mailId) {
 		System.out.println("mailId"+mailId); 
 		System.out.println("-");
-		return null;
+		String retVal = userService.forgotPassword(mailId);
+		return retVal;
 	}
 }

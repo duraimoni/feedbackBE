@@ -29,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @NamedQuery(name = "User.findAllByStatus", query = "SELECT u FROM User u where u.status!=-1")
 @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u where u.changePassword!=0")
+@NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u where u.email= :email")
 @Transactional
 @NamedQuery(name="User.updateStatus", query="UPDATE User d SET d.status=1 WHERE d.userId= :userId")
 @NamedQuery(name="User.deleteUser", query="UPDATE User d SET d.status=-1 WHERE d.userId= :userId")
