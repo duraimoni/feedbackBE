@@ -1,0 +1,4 @@
+2019-06-18 11:11:36,764 INFO com.atos.feedback.FeedbackApplicationTests [main] Starting FeedbackApplicationTests on MC0WKWHC with PID 7236 (started by a575613 in C:\RK\ratingapp\soource\backend\source\feedback)
+2019-06-18 11:11:36,787 DEBUG com.atos.feedback.FeedbackApplicationTests [main] Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-06-18 11:11:36,789 INFO com.atos.feedback.FeedbackApplicationTests [main] No active profile set, falling back to default profiles: default
+2019-06-18 11:12:06,908 INFO com.atos.feedback.FeedbackApplicationTests [main] Started FeedbackApplicationTests in 32.399 seconds (JVM running for 37.06)

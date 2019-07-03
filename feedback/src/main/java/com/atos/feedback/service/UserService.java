@@ -33,4 +33,5 @@ public interface UserService {
 	String forgotPassword(String mailId);
 	
 	int getLoggedInStatus(Long userId);
+	
 }

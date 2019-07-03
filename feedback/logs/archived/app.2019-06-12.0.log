@@ -1,0 +1,66 @@
+2019-06-12 16:00:23,275 INFO com.atos.feedback.FeedbackApplication [main] Starting FeedbackApplication on MC0WKWHC with PID 17236 (C:\RK\ratingapp\soource\backend\source\feedback\target\classes started by a575613 in C:\RK\ratingapp\soource\backend\source\feedback)
+2019-06-12 16:00:23,346 DEBUG com.atos.feedback.FeedbackApplication [main] Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-06-12 16:00:23,347 INFO com.atos.feedback.FeedbackApplication [main] No active profile set, falling back to default profiles: default
+2019-06-12 16:00:48,089 INFO com.atos.feedback.FeedbackApplication [main] Started FeedbackApplication in 26.511 seconds (JVM running for 31.605)
+2019-06-12 16:01:06,150 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-2] user authenticate service
+2019-06-12 16:01:09,505 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-5]  findRatings service
+2019-06-12 16:01:09,505 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-10] getDropdownVal service
+2019-06-12 16:01:09,580 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-7]  findAll service
+2019-06-12 16:02:59,590 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-3] user authenticate service
+2019-06-12 16:03:08,164 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-10]  findAll service
+2019-06-12 16:03:08,171 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-7] getDropdownVal service
+2019-06-12 16:03:08,174 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-8]  findRatings service
+2019-06-12 16:05:35,157 INFO com.atos.feedback.FeedbackApplication [main] Starting FeedbackApplication on MC0WKWHC with PID 14632 (C:\RK\ratingapp\soource\backend\source\feedback\target\classes started by a575613 in C:\RK\ratingapp\soource\backend\source\feedback)
+2019-06-12 16:05:35,161 DEBUG com.atos.feedback.FeedbackApplication [main] Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-06-12 16:05:35,161 INFO com.atos.feedback.FeedbackApplication [main] No active profile set, falling back to default profiles: default
+2019-06-12 16:05:45,593 INFO com.atos.feedback.FeedbackApplication [main] Started FeedbackApplication in 10.818 seconds (JVM running for 12.758)
+2019-06-12 16:07:28,723 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-2] user authenticate service
+2019-06-12 16:07:32,450 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-7] getDropdownVal service
+2019-06-12 16:07:32,452 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-8]  findRatings service
+2019-06-12 16:08:17,797 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-5]  findAll service:3
+2019-06-12 16:11:35,275 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-2] user authenticate service
+2019-06-12 16:11:37,763 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-7] getDropdownVal service
+2019-06-12 16:11:37,793 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-9]  findRatings service
+2019-06-12 16:11:39,375 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-8]  findAll service:3
+2019-06-12 16:12:01,078 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-5]  findAll service:3
+2019-06-12 16:12:11,473 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-2]  getMailContent service
+2019-06-12 16:12:55,388 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-9] getDominUser service
+2019-06-12 16:12:57,077 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-2]  findRatings service
+2019-06-12 16:12:57,078 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-1] getDropdownVal service
+2019-06-12 16:12:57,084 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-5]  findAll service:3
+2019-06-12 16:13:24,692 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-3] user authenticate service
+2019-06-12 16:13:26,792 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-8]  findAll service:5
+2019-06-12 16:13:26,795 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-10] getDropdownVal service
+2019-06-12 16:13:26,809 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-2]  findRatings service
+2019-06-12 16:13:36,430 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-5]  add service
+2019-06-12 16:13:36,444 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-3]  findAll service:5
+2019-06-12 16:13:43,265 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-9]  findAll service:5
+2019-06-12 16:13:54,680 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-2] user authenticate service
+2019-06-12 16:13:56,816 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-6]  findAll service:3
+2019-06-12 16:13:56,819 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-3] getDropdownVal service
+2019-06-12 16:13:56,833 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-5]  findRatings service
+2019-06-12 16:13:59,563 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-4]  findAll service:3
+2019-06-12 16:14:01,754 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-7]  find service:1
+2019-06-12 16:22:39,446 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-5]  getMailContent service
+2019-06-12 16:23:13,397 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-6] user authenticate service
+2019-06-12 16:23:16,932 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-9]  getMailContent service
+2019-06-12 16:23:30,763 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-2]  addMailContent service
+2019-06-12 16:23:34,511 INFO com.atos.feedback.controller.UserController [http-nio-8080-exec-10]  findAll service
+2019-06-12 16:23:42,185 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-4] getDropdownVal service
+2019-06-12 16:23:42,185 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-6]  findAll service:1
+2019-06-12 16:23:42,186 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-9]  findRatings service
+2019-06-12 16:24:08,067 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-2]  getMailContent service
+2019-06-12 16:24:11,334 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-10] getDropdownVal service
+2019-06-12 17:42:22,399 INFO com.atos.feedback.controller.LoginController [http-nio-8080-exec-4] user authenticate service
+2019-06-12 17:42:25,398 INFO com.atos.feedback.controller.MailContentController [http-nio-8080-exec-7]  getMailContent service
+2019-06-12 17:42:28,216 INFO com.atos.feedback.controller.UserController [http-nio-8080-exec-8]  findAll service
+2019-06-12 17:42:34,490 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-5]  findAll service:1
+2019-06-12 17:42:34,491 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-9] getDropdownVal service
+2019-06-12 17:42:34,494 INFO com.atos.feedback.controller.RatingController [http-nio-8080-exec-4]  findRatings service
+2019-06-12 17:42:37,724 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-6]  findAll service:1
+2019-06-12 17:42:38,773 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-8] getDropdownVal service
+2019-06-12 17:42:38,823 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-10]  find service:1
+2019-06-12 17:42:38,846 INFO com.atos.feedback.controller.UserController [http-nio-8080-exec-3]  findAll service
+2019-06-12 17:42:40,914 INFO com.atos.feedback.controller.ProductController [http-nio-8080-exec-4]  findAll service:1
+2019-06-12 17:42:47,196 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-5] getDominUser service
+2019-06-12 17:42:59,401 INFO com.atos.feedback.controller.DomainController [http-nio-8080-exec-7] getDropdownVal service

@@ -6,27 +6,29 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atos.feedback.service.DomainService;
 import com.atos.feedback.service.UserService;
 import com.atos.feedback.vo.CustomUserDetails;
+import com.atos.feedback.vo.DomainVO;
 import com.atos.feedback.vo.UserVO;
 
 @RestController
 @RequestMapping("login")
-@CrossOrigin(origins = "http://192.168.99.1:4200")
+//@CrossOrigin(origins = "http://192.168.99.1:4200")
 public class LoginController {
 
-	
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	/*
 	 * @GetMapping(value = "authenticate", produces =
 	 * MediaType.APPLICATION_JSON_VALUE) public String authenticate() { return
@@ -34,10 +36,11 @@ public class LoginController {
 	 */
 	@Autowired
 	UserService userService;
-	
+	@Autowired
+	DomainService domainService;
 	@GetMapping("authenticate")
 	public UserVO user(Principal user, HttpSession session) {
-		System.out.println("pind" + user.getName());
+		LOGGER.info("user authenticate service");
 		session.setAttribute("username", user.getName());
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
@@ -52,11 +55,23 @@ public class LoginController {
 		userVo.setRoles(userRoles);
 		return userVo;
 	}
+
 	@PostMapping("forgotpassword")
 	public String resetPassword(@RequestBody String mailId) {
-		System.out.println("mailId"+mailId); 
-		System.out.println("-");
+		LOGGER.info(" forgotpassword service");
 		String retVal = userService.forgotPassword(mailId);
 		return retVal;
+	}
+	@PostMapping("test")
+	public DomainVO testDomain(@RequestBody DomainVO domainVO) {
+		System.out.println("rathakrishnn");
+		domainVO = new DomainVO();
+		domainVO.setDomainDesc("rathakr:s");
+		return domainVO;
+	}
+	@GetMapping("dropdown")
+	public List<DomainVO> getDropdownVal(HttpSession session) {
+		LOGGER.info("getDropdownVal service");
+		return domainService.findAll();
 	}
 }

@@ -8,7 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
@@ -17,15 +16,15 @@ import org.springframework.stereotype.Component;
 public class CORSFilter implements Filter {
 
 	public CORSFilter() {
-	    System.out.println("SimpleCORSFilter init");
+	   
 	}
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
-	    HttpServletRequest request = (HttpServletRequest) req;
+ 
 	    HttpServletResponse response = (HttpServletResponse) res;
 
-	    response.setHeader("Access-Control-Allow-Origin","*");
+	    response.setHeader("Access-Control-Allow-Origin","https://post-adm-product-feedback.bps.fr.atos.net");
 	    response.setHeader("Access-Control-Allow-Credentials", "true");
 	    response.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS");
 	    response.setHeader("Access-Control-Max-Age", "3600");
